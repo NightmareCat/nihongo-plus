@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "aiProvider": "opencode-go",
+  "exampleCount": 2,
+  "concurrency": 40,
+  "requestTimeoutSeconds": 600,
+  "providers": {
+    "deepseek": {
+      "label": "DeepSeek 官方",
+      "baseUrl": "https://api.deepseek.com",
+      "model": "deepseek-v4-flash"
+    },
+    "opencode-go": {
+      "label": "OpenCode Go",
+      "baseUrl": "https://opencode.ai/zen/go/v1",
+      "model": "deepseek-v4.1-flash"
+    }
+  }
+}

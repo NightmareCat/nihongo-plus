@@ -1,0 +1,16 @@
+{
+  "name": "nihongo-plus",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "个人日语单词记录、整理与学习平台",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --watch server.mjs",
+    "test": "node --test",
+    "check": "node --check server.mjs && node --check src/repository.mjs && node --check src/deepseek.mjs && node --check src/fetch-json.mjs && node --check src/word-schema.mjs && node --check public/app.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

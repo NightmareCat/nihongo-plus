@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="个人日语单词记录、整理与学习平台" />
+    <title>Nihongo Plus · 日语词库</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="主导航">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">日</span>
+          <div><strong>Nihongo Plus</strong><small>わたしの単語帳</small></div>
+        </div>
+
+        <nav class="nav-list">
+          <button class="nav-item active" data-view="home"><span>⌂</span>概览</button>
+          <button class="nav-item" data-view="add"><span>＋</span>添加单词</button>
+          <button class="nav-item" data-view="manage"><span>冊</span>词库管理</button>
+          <button class="nav-item" data-view="collections"><span>▦</span>子词库</button>
+          <button class="nav-item" data-view="settings"><span>⚙</span>设置</button>
+          <p class="nav-label">学习空间</p>
+          <button class="nav-item" data-view="learn"><span>◇</span>记忆练习 <em>预留</em></button>
+          <button class="nav-item" data-view="quiz"><span>✓</span>考核测试 <em>预留</em></button>
+        </nav>
+
+        <div class="sync-card">
+          <span class="sync-icon">↻</span>
+          <div><strong>JSON 本地词库</strong><small>提交到 Git 即可双机同步</small></div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <button class="mobile-menu" aria-label="打开菜单">☰</button>
+          <div class="top-title"><span id="eyebrow">学习概览</span><h1 id="page-title">今日，从一个词开始。</h1></div>
+          <div class="top-actions">
+            <div class="ai-state" id="ai-state"><i></i><span>DeepSeek</span></div>
+            <button class="theme-toggle" id="theme-toggle" aria-label="切换深色模式" title="切换深色模式">☾</button>
+            <button class="avatar" aria-label="个人设置">学</button>
+          </div>
+        </header>
+
+        <div id="app" class="content" aria-live="polite"></div>
+      </main>
+    </div>
+
+    <div id="toast-region" class="toast-region" aria-live="polite"></div>
+    <dialog id="word-dialog" class="dialog word-dialog"></dialog>
+    <dialog id="confirm-dialog" class="dialog confirm-dialog"></dialog>
+    <dialog id="collection-dialog" class="dialog collection-dialog"></dialog>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
