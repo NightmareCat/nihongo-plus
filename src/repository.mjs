@@ -7,7 +7,7 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { config } from "./config.mjs";
-import { fillMissingStoredCategory, normalizeWordPatch } from "./word-schema.mjs";
+import { fillMissingStoredCategory, normalizeStoredWord, normalizeWordPatch } from "./word-schema.mjs";
 
 const EMPTY_META = { schemaVersion: 1, name: "个人收集", updatedAt: "", words: [] };
 let libraryMutationTail = Promise.resolve();
@@ -41,6 +41,8 @@ function createRecord(term, overrides = {}) {
     examples: [],
     notes: "",
     aiStatus: "pending",
+    // 学习分类独立于词性；paused 词条仍保留在词库，但不进入记忆和考核。
+    studyStatus: "active",
     createdAt: now,
     updatedAt: now,
     ...overrides,
@@ -88,7 +90,7 @@ export async function initializeRepository() {
 export async function getLibrary() {
   const library = await readJson(config.libraryFile, EMPTY_META);
   // 兼容此前已补全但 category 漏填的数据，读取时从词性细分和标签恢复分类。
-  return { ...library, words: library.words.map(fillMissingStoredCategory) };
+  return { ...library, words: library.words.map((word) => normalizeStoredWord(fillMissingStoredCategory(word))) };
 }
 
 export async function getCollections() {
@@ -117,7 +119,7 @@ export function addWord(input) {
 }
 
 function sanitizeWordInput(input) {
-  const allowed = ["reading", "partOfSpeech", "meanings", "jlpt", "tags", "conjugations", "examples", "notes", "aiStatus"];
+  const allowed = ["reading", "partOfSpeech", "meanings", "jlpt", "tags", "conjugations", "examples", "notes", "aiStatus", "studyStatus"];
   const selected = Object.fromEntries(allowed.filter((key) => input[key] !== undefined).map((key) => [key, input[key]]));
   return normalizeWordPatch(selected);
 }

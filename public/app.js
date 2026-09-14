@@ -8,7 +8,7 @@ const state = {
   collections: [],
   options: { conjugations: [] },
   settings: {
-    aiProvider: "deepseek", exampleCount: 2, concurrency: 3, requestTimeoutSeconds: 60,
+    aiProvider: "deepseek", exampleCount: 2, concurrency: 3, requestTimeoutSeconds: 60, learningAutoFlipSeconds: 60,
     providers: { deepseek: { label: "DeepSeek 官方", model: "deepseek-v4-flash" }, "opencode-go": { label: "OpenCode Go", model: "deepseek-v4.1-flash" } },
     keyConfigured: { deepseek: false, "opencode-go": false },
   },
@@ -20,6 +20,8 @@ const state = {
   filters: { query: "", category: "", jlpt: "", collection: "", status: "" },
   page: 1,
   pageSize: 18,
+  // 随机学习牌组只保存词条 ID，词条编辑后仍能读取最新内容。
+  learning: { wordIds: [], index: 0, autoPlay: false, timer: null },
 };
 
 const app = document.querySelector("#app");
@@ -27,20 +29,29 @@ const wordDialog = document.querySelector("#word-dialog");
 const confirmDialog = document.querySelector("#confirm-dialog");
 const collectionDialog = document.querySelector("#collection-dialog");
 const pageTitles = {
-  home: ["学习概览", "今日，从一个词开始。"],
-  add: ["快速收录", "把遇见的词，留在这里。"],
-  manage: ["词库管理", "整理你的语言地图。"],
-  collections: ["子词库", "让词语各归其位。"],
-  settings: ["平台设置", "按你的方式学习。"],
-  learn: ["学习空间", "记忆练习"],
-  quiz: ["学习空间", "考核测试"],
+  home: ["学习概览"],
+  add: ["快速收录"],
+  manage: ["词库管理"],
+  collections: ["子词库"],
+  settings: ["平台设置"],
+  learn: ["随机单词"],
+  quiz: ["考核测试"],
 };
 
 const escapeHtml = (value = "") => String(value).replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
 const rubyHtml = (value = "") => escapeHtml(String(value).replace(/\\([<>])/g, "$1"))
   .replace(/&lt;(\/?)ruby&gt;/gi, "<$1ruby>")
   .replace(/&lt;(\/?)rt&gt;/gi, "<$1rt>");
-const wordComplete = (word) => Boolean(word.reading && word.meanings?.length && word.partOfSpeech?.category !== "未分类" && word.jlpt !== "未定" && word.examples?.length);
+const validJlpt = (value) => ["N5", "N4", "N3", "N2", "N1", "不适用"].includes(value);
+const missingWordFields = (word) => [
+  !word.reading && "读音",
+  !word.meanings?.length && "释义",
+  (!word.partOfSpeech?.category || word.partOfSpeech.category === "未分类") && "词性",
+  !validJlpt(word.jlpt) && "JLPT",
+  !word.examples?.length && "例句",
+  (["动词", "形容词"].includes(word.partOfSpeech?.category) && !word.conjugations?.length) && "活用",
+].filter(Boolean);
+const wordComplete = (word) => missingWordFields(word).length === 0;
 const wordIsBlank = (word) => !word.reading
   && !word.meanings?.length
   && (!word.partOfSpeech?.category || word.partOfSpeech.category === "未分类")
@@ -51,8 +62,11 @@ const wordIsBlank = (word) => !word.reading
   && !word.tags?.length
   && !word.conjugations?.length
   && !word.examples?.length;
-const wordNeedsEnrichment = (word) => !wordComplete(word)
-  || (["动词", "形容词"].includes(word.partOfSpeech?.category) && !word.conjugations?.length);
+const wordNeedsEnrichment = (word) => !wordComplete(word);
+// 记忆与未来考核共用的准入规则，后续启用考核时可直接调用 quizEligibleWords。
+const wordEligibleForPractice = (word) => word.studyStatus !== "paused";
+const memoryEligibleWords = () => state.words.filter(wordEligibleForPractice);
+const quizEligibleWords = () => state.words.filter(wordEligibleForPractice);
 const normalize = (value = "") => String(value).normalize("NFKC").trim().replace(/^[~〜～]+|[~〜～]+$/g, "").replace(/\s+/g, "").toLocaleLowerCase("ja-JP");
 const activeProvider = () => state.settings.providers[state.settings.aiProvider];
 const aiConfigured = () => Boolean(state.settings.keyConfigured[state.settings.aiProvider]);
@@ -101,11 +115,12 @@ function toast(message, type = "success") {
 }
 
 function setView(view) {
+  // 离开学习页时停止计时，避免在后台继续自动翻页。
+  if (state.view === "learn" && view !== "learn") stopLearningAutoPlay();
   state.view = pageTitles[view] ? view : "home";
   location.hash = state.view;
   document.querySelectorAll(".nav-item").forEach((item) => item.classList.toggle("active", item.dataset.view === state.view));
-  const [eyebrow, title] = pageTitles[state.view];
-  document.querySelector("#eyebrow").textContent = eyebrow;
+  const [title] = pageTitles[state.view];
   document.querySelector("#page-title").textContent = title;
   document.querySelector(".sidebar").classList.remove("open");
   render();
@@ -117,14 +132,125 @@ function render() {
   else if (state.view === "manage") renderManage();
   else if (state.view === "collections") renderCollections();
   else if (state.view === "settings") renderSettings();
+  else if (state.view === "learn") renderLearn();
   else renderReserved(state.view);
+}
+
+/**
+ * @description 使用 Fisher-Yates 算法生成无重复的随机学习顺序。
+ */
+function shuffleLearningWords() {
+  const wordIds = memoryEligibleWords().map((word) => word.id);
+  for (let index = wordIds.length - 1; index > 0; index -= 1) {
+    const target = Math.floor(Math.random() * (index + 1));
+    [wordIds[index], wordIds[target]] = [wordIds[target], wordIds[index]];
+  }
+  state.learning.wordIds = wordIds;
+  state.learning.index = 0;
+}
+
+function renderLearn() {
+  clearTimeout(state.learning.timer);
+  state.learning.timer = null;
+  const learnableWords = memoryEligibleWords();
+  const availableIds = new Set(learnableWords.map((word) => word.id));
+  const deckIsCurrent = state.learning.wordIds.length === learnableWords.length
+    && state.learning.wordIds.every((id) => availableIds.has(id));
+  if (!deckIsCurrent) shuffleLearningWords();
+
+  const { wordIds, index } = state.learning;
+  const word = state.words.find((item) => item.id === wordIds[index]);
+  if (!word) {
+    const hasWords = state.words.length > 0;
+    app.innerHTML = `<section class="card empty-state"><div><strong>还没有可学习的单词</strong><p>${hasWords ? "当前词条均已设为暂不学习，可在词条编辑器中恢复。" : "先向个人词库添加词条，再回到这里开始随机学习。"}</p>${hasWords ? `<button class="primary-btn" data-go="manage">管理词库</button>` : `<button class="primary-btn" data-go="add">添加第一个单词</button>`}</div></section>`;
+    bindCommonActions();
+    return;
+  }
+
+  const partDetails = [word.partOfSpeech?.category, word.partOfSpeech?.detail, word.partOfSpeech?.conjugationClass, word.partOfSpeech?.transitivity].filter(Boolean);
+  app.innerHTML = `
+    <section class="learn-shell">
+      <div class="learn-toolbar">
+        <div><strong>本轮进度 ${index + 1} / ${wordIds.length}</strong><span>本轮每个词只出现一次</span></div>
+        <div class="learn-progress" aria-label="学习进度"><i style="width:${(index + 1) / wordIds.length * 100}%"></i></div>
+        <div class="learn-toolbar-actions"><button class="secondary-btn small-btn" id="toggle-autoplay">${state.learning.autoPlay ? "Ⅱ 暂停自动翻页" : `▶ 自动翻页（${state.settings.learningAutoFlipSeconds || 60} 秒）`}</button><button class="secondary-btn small-btn" id="reshuffle-learn">↻ 重新洗牌</button></div>
+      </div>
+
+      <article class="card learn-card">
+        <header class="learn-word-head">
+          <div>
+            <div class="learn-badges"><span class="badge accent">${escapeHtml(word.jlpt || "未定")}</span>${(word.tags || []).map((tag) => `<span class="badge">${escapeHtml(tag)}</span>`).join("")}</div>
+            <h2>${escapeHtml(word.term)}</h2>
+            <p class="learn-reading">${escapeHtml(word.reading || "暂无读音")}</p>
+          </div>
+          <button class="pronounce-btn" id="pronounce-word" aria-label="朗读${escapeHtml(word.term)}" title="日语朗读">♪<span>发音</span></button>
+        </header>
+
+        <div class="learn-detail-grid">
+          <section class="learn-section learn-meanings"><h3>含义</h3>${word.meanings?.length ? `<ol>${word.meanings.map((meaning) => `<li>${escapeHtml(meaning)}</li>`).join("")}</ol>` : `<p class="learn-empty">暂无释义</p>`}</section>
+          <section class="learn-section"><h3>词条信息</h3>${partDetails.length ? `<dl class="word-facts"><div><dt>词性</dt><dd>${escapeHtml(word.partOfSpeech?.category || "未分类")}</dd></div><div><dt>细分</dt><dd>${escapeHtml(word.partOfSpeech?.detail || "—")}</dd></div><div><dt>活用类型</dt><dd>${escapeHtml(word.partOfSpeech?.conjugationClass || "—")}</dd></div><div><dt>自他动</dt><dd>${escapeHtml(word.partOfSpeech?.transitivity || "—")}</dd></div></dl>` : `<p class="learn-empty">暂无词性信息</p>`}</section>
+        </div>
+
+        <section class="learn-section"><h3>例句</h3><div class="learn-example-list">${word.examples?.length ? word.examples.map((example, exampleIndex) => `<article><span>${String(exampleIndex + 1).padStart(2, "0")}</span><div><p class="ruby-preview">${rubyHtml(example.japanese)}</p><small>${escapeHtml(example.chinese || "暂无翻译")}</small></div></article>`).join("") : `<p class="learn-empty">暂无例句</p>`}</div></section>
+
+        <section class="learn-section"><h3>活用</h3>${word.conjugations?.length ? `<div class="learn-conjugations">${word.conjugations.map((item) => `<article><div><strong>${escapeHtml(item.name || "活用")}</strong><b>${escapeHtml(item.form || "—")}</b></div>${item.example || item.exampleChinese ? `<p class="ruby-preview">${rubyHtml(item.example)}</p><small>${escapeHtml(item.exampleChinese || "")}</small>` : ""}</article>`).join("")}</div>` : `<p class="learn-empty">此词条暂无活用信息</p>`}</section>
+
+        ${word.notes ? `<section class="learn-section learn-notes"><h3>个人笔记</h3><p>${escapeHtml(word.notes)}</p></section>` : ""}
+      </article>
+
+      <footer class="learn-actions">
+        <button class="secondary-btn" id="learn-prev" ${index === 0 ? "disabled" : ""}>← 上一个</button>
+        <button class="ghost-btn" data-edit="${word.id}">编辑此词条</button>
+        <button class="primary-btn" id="learn-next">${index === wordIds.length - 1 ? "完成并重新洗牌" : "下一个 →"}</button>
+      </footer>
+    </section>`;
+
+  document.querySelector("#reshuffle-learn").addEventListener("click", () => { shuffleLearningWords(); renderLearn(); });
+  document.querySelector("#toggle-autoplay").addEventListener("click", () => {
+    state.learning.autoPlay = !state.learning.autoPlay;
+    renderLearn();
+  });
+  document.querySelector("#learn-prev").addEventListener("click", () => { state.learning.index -= 1; renderLearn(); scrollTo({ top: 0, behavior: "smooth" }); });
+  document.querySelector("#learn-next").addEventListener("click", () => advanceLearningWord(true));
+  document.querySelector("#pronounce-word").addEventListener("click", () => pronounceJapanese(word.term, word.reading));
+  bindCommonActions();
+  scheduleLearningAutoPlay();
+}
+
+function advanceLearningWord(smoothScroll = false) {
+  if (state.learning.index === state.learning.wordIds.length - 1) shuffleLearningWords();
+  else state.learning.index += 1;
+  renderLearn();
+  scrollTo({ top: 0, behavior: smoothScroll ? "smooth" : "auto" });
+}
+
+function scheduleLearningAutoPlay() {
+  if (!state.learning.autoPlay || state.view !== "learn" || !state.learning.wordIds.length) return;
+  state.learning.timer = setTimeout(() => advanceLearningWord(), (state.settings.learningAutoFlipSeconds || 60) * 1_000);
+}
+
+function stopLearningAutoPlay() {
+  state.learning.autoPlay = false;
+  clearTimeout(state.learning.timer);
+  state.learning.timer = null;
+}
+
+function pronounceJapanese(term, reading) {
+  if (!("speechSynthesis" in window)) return toast("当前浏览器不支持语音朗读", "error");
+  speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(reading || term);
+  utterance.lang = "ja-JP";
+  utterance.rate = 0.82;
+  const japaneseVoice = speechSynthesis.getVoices().find((voice) => voice.lang.toLowerCase().startsWith("ja"));
+  if (japaneseVoice) utterance.voice = japaneseVoice;
+  speechSynthesis.speak(utterance);
 }
 
 function getStats() {
   const complete = state.words.filter(wordComplete).length;
   const pending = state.words.length - complete;
   const recent = [...state.words].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 6);
-  const levels = Object.fromEntries(["N5", "N4", "N3", "N2", "N1", "未定"].map((level) => [level, state.words.filter((word) => word.jlpt === level).length]));
+  const levels = Object.fromEntries(["N5", "N4", "N3", "N2", "N1", "不适用", "未定"].map((level) => [level, state.words.filter((word) => word.jlpt === level).length]));
   return { complete, pending, recent, levels };
 }
 
@@ -136,9 +262,8 @@ function renderHome() {
     <div class="dashboard-grid">
       <section class="stack">
         <article class="card feature-card">
-          <span class="kicker">QUICK CAPTURE · 快速收录</span>
-          <h2>刚刚遇到的日语，<br>趁热把它记下来。</h2>
-          <p>输入后会立即在本地词库中检查重复；保存后可交给 ${escapeHtml(activeProvider().label)} · ${escapeHtml(activeProvider().model)} 补全读音、释义与例句。</p>
+          <h2>快速收录</h2>
+          <p>自动检查重复，保存后可补全读音、释义与例句。</p>
           <form class="quick-row" id="quick-form">
             <input id="quick-term" autocomplete="off" placeholder="例如：見惚れる / ～うちに" aria-label="日语单词或语法" required />
             <button class="primary-btn" type="submit">收录单词</button>
@@ -152,7 +277,7 @@ function renderHome() {
         </div>
 
         <article class="card card-pad">
-          <div class="section-head"><div><h2>最近收录</h2><p>继续完善刚遇见的表达</p></div><button class="text-link" data-go="manage">查看全部 →</button></div>
+          <div class="section-head"><div><h2>最近收录</h2></div><button class="text-link" data-go="manage">查看全部 →</button></div>
           <div class="recent-list">
             ${stats.recent.map((word) => `
               <div class="recent-item" data-edit="${word.id}" tabindex="0">
@@ -260,7 +385,7 @@ function categoryOptions(value = "未分类") {
   return ["未分类", "名词", "动词", "形容词", "副词", "语法结构", "固定搭配", "惯用语", "接续词", "感叹词", "助词", "其他"].map((item) => `<option ${item === value ? "selected" : ""}>${item}</option>`).join("");
 }
 function jlptOptions(value = "未定") {
-  return ["未定", "N5", "N4", "N3", "N2", "N1"].map((item) => `<option ${item === value ? "selected" : ""}>${item}</option>`).join("");
+  return ["未定", "N5", "N4", "N3", "N2", "N1", "不适用"].map((item) => `<option ${item === value ? "selected" : ""}>${item}</option>`).join("");
 }
 
 function filteredWords() {
@@ -414,6 +539,13 @@ function renderSettings() {
           </div>
 
           <div class="settings-section">
+            <div class="section-head"><div><h2>学习偏好</h2><p>控制随机单词页的自动阅读节奏。</p></div></div>
+            <div class="form-grid">
+              <div class="field"><label>自动翻页间隔（秒）</label><input class="input" type="number" name="learningAutoFlipSeconds" value="${settings.learningAutoFlipSeconds || 60}" min="10" max="600" step="1" inputmode="numeric" required /><small>默认 60 秒，可设置为 10～600 秒；手动翻页后会重新计时。</small></div>
+            </div>
+          </div>
+
+          <div class="settings-section">
             <div class="section-head"><div><h2>外观</h2><p>主题偏好只保存在当前浏览器。</p></div></div>
             <label class="field"><span>颜色模式</span><select class="select" name="theme"><option value="system" ${theme === "system" ? "selected" : ""}>跟随系统</option><option value="light" ${theme === "light" ? "selected" : ""}>浅色</option><option value="dark" ${theme === "dark" ? "selected" : ""}>深色</option></select></label>
           </div>
@@ -443,6 +575,7 @@ function renderSettings() {
         exampleCount: Number(data.get("exampleCount")),
         concurrency: Number(data.get("concurrency")),
         requestTimeoutSeconds: Number(data.get("requestTimeoutSeconds")),
+        learningAutoFlipSeconds: Number(data.get("learningAutoFlipSeconds")),
         providers: {
           deepseek: { baseUrl: data.get("deepseekBaseUrl"), model: data.get("deepseekModel") },
           "opencode-go": { baseUrl: data.get("opencodeBaseUrl"), model: data.get("opencodeModel") },
@@ -490,6 +623,7 @@ function openWordDialog(id) {
           <div class="field"><label>词条</label><input class="input" name="term" value="${escapeHtml(word.term)}" required /></div>
           <div class="field"><div class="field-title"><label>假名读音</label><button class="clear-link" type="button" data-clear="reading">清空</button></div><input class="input" name="reading" value="${escapeHtml(word.reading)}" /></div>
           <div class="field"><label>分类</label><select class="select" name="category">${categoryOptions(word.partOfSpeech?.category)}</select></div>
+          <div class="field"><label>学习分类</label><select class="select" name="studyStatus"><option value="active" ${word.studyStatus !== "paused" ? "selected" : ""}>正常学习</option><option value="paused" ${word.studyStatus === "paused" ? "selected" : ""}>暂不学习（不进入记忆与考核）</option></select></div>
           <div class="field"><label>词性细分</label><input class="input" name="detail" value="${escapeHtml(word.partOfSpeech?.detail)}" placeholder="例如：五段动词 / い形容词" /></div>
           <div class="field"><label>活用类型</label><input class="input" name="conjugationClass" value="${escapeHtml(word.partOfSpeech?.conjugationClass)}" placeholder="一段、五段、不规则" /></div>
           <div class="field"><label>自他动</label><select class="select" name="transitivity"><option value="">不适用 / 未定</option>${["自动词", "他动词", "自动词・他动词两用"].map((item) => `<option ${word.partOfSpeech?.transitivity === item ? "selected" : ""}>${item}</option>`).join("")}</select></div>
@@ -555,7 +689,7 @@ function bindRubyPreviews() {
 function collectWordForm() {
   const data = new FormData(document.querySelector("#word-form"));
   return {
-    term: data.get("term"), reading: data.get("reading"), jlpt: data.get("jlpt"), notes: data.get("notes"),
+    term: data.get("term"), reading: data.get("reading"), jlpt: data.get("jlpt"), notes: data.get("notes"), studyStatus: data.get("studyStatus"),
     meanings: lines(data.get("meanings")), tags: String(data.get("tags") || "").split(/[、,，]/).map((item) => item.trim()).filter(Boolean),
     partOfSpeech: { category: data.get("category"), detail: data.get("detail"), conjugationClass: data.get("conjugationClass"), transitivity: data.get("transitivity") },
     examples: [...document.querySelectorAll(".example-row")].map((row) => ({ japanese: row.querySelector("[name=exampleJapanese]").value.replace(/\\([<>])/g, "$1"), chinese: row.querySelector("[name=exampleChinese]").value })).filter((item) => item.japanese || item.chinese),
@@ -585,7 +719,8 @@ async function runWordEnrichment(id, mode, fields, button) {
     toast("已转入后台生成，可以继续查看或修改其他词条");
     const { word: updated } = await api(`/api/words/${id}/enrich`, { method: "POST", body: JSON.stringify({ exampleCount: state.settings.exampleCount, mode, fields }) });
     replaceWord(updated);
-    toast(mode === "missing" ? "后台补全已完成" : "后台重新生成已完成");
+    const remaining = missingWordFields(updated);
+    toast(remaining.length ? `生成结束，仍缺：${remaining.join("、")}` : mode === "missing" ? "后台补全已完成" : "后台重新生成已完成", remaining.length ? "error" : "success");
   } catch (error) {
     toast(error.message, "error");
   } finally {
@@ -615,7 +750,7 @@ async function runBatchEnrichment(ids) {
   document.querySelector(".batch-progress")?.remove();
   const panel = document.createElement("div");
   panel.className = "batch-progress";
-  panel.innerHTML = `<div class="batch-progress-head"><strong>正在并行处理</strong><span id="batch-count">0 / ${ids.length}</span></div><div class="progress"><span id="batch-bar" style="width:0"></span></div><div class="progress-label"><span>${escapeHtml(activeProvider().label)} · ${escapeHtml(activeProvider().model)} · 单次最长 ${state.settings.requestTimeoutSeconds} 秒</span><span>并发 ${state.settings.concurrency} <button class="ghost-btn small-btn" id="stop-batch" type="button">停止</button></span></div>`;
+  panel.innerHTML = `<div class="batch-progress-head"><strong>正在并行处理</strong><span id="batch-count">0 / ${ids.length}</span></div><div class="progress"><span id="batch-bar" style="width:0"></span></div><div class="progress-label"><span>${escapeHtml(activeProvider().label)} · ${escapeHtml(activeProvider().model)} · 最多尝试 3 次</span><span id="batch-retries">重试 0 次</span><span>并发 ${state.settings.concurrency} <button class="ghost-btn small-btn" id="stop-batch" type="button">停止</button></span></div><div class="batch-detail" id="batch-detail" hidden></div>`;
   document.body.append(panel);
   let stopped = false;
   panel.querySelector("#stop-batch").addEventListener("click", () => {
@@ -627,15 +762,56 @@ async function runBatchEnrichment(ids) {
 
   let cursor = 0;
   let completed = 0;
-  let failed = 0;
+  let retryCount = 0;
+  const failures = [];
+  const maxAttempts = 3;
+  const waitForRetry = (delayMs) => new Promise((resolve, reject) => {
+    if (batchController.signal.aborted) {
+      reject(new DOMException("请求已取消", "AbortError"));
+      return;
+    }
+    const timer = setTimeout(() => { batchController.signal.removeEventListener("abort", cancel); resolve(); }, delayMs);
+    const cancel = () => { clearTimeout(timer); reject(new DOMException("请求已取消", "AbortError")); };
+    batchController.signal.addEventListener("abort", cancel, { once: true });
+  });
+  const runWithRetry = async (id) => {
+    let lastError;
+    let attempts = 0;
+    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+      attempts = attempt;
+      try {
+        const { word } = await api(`/api/words/${id}/enrich`, { method: "POST", signal: batchController.signal, body: JSON.stringify({ exampleCount: state.settings.exampleCount, mode: "missing", fields: [] }) });
+        replaceWord(word);
+        const remaining = missingWordFields(word);
+        if (!remaining.length) return;
+        const incompleteError = new Error(`补全后仍缺：${remaining.join("、")}`);
+        incompleteError.retryable = true;
+        throw incompleteError;
+      } catch (error) {
+        if (error.name === "AbortError") throw error;
+        lastError = error;
+        const retryable = error.retryable || !error.status || error.status === 408 || error.status === 429 || error.status >= 500;
+        if (!retryable || attempt === maxAttempts) break;
+        retryCount += 1;
+        panel.querySelector("#batch-retries").textContent = `重试 ${retryCount} 次`;
+        // 指数退避并加入少量随机抖动，避免并发请求在同一时刻再次冲击上游服务。
+        await waitForRetry((2 ** (attempt - 1) * 1_500) + Math.floor(Math.random() * 500));
+      }
+    }
+    throw Object.assign(lastError || new Error("未知错误"), { attempts });
+  };
   const runWorker = async () => {
     while (!stopped && cursor < ids.length) {
       const id = ids[cursor++];
       try {
         // 每个词单独调用后端；后端又为 OpenCode Go 分配独立 x-opencode-session。
-        const { word } = await api(`/api/words/${id}/enrich`, { method: "POST", signal: batchController.signal, body: JSON.stringify({ exampleCount: state.settings.exampleCount, mode: "missing", fields: [] }) });
-        replaceWord(word);
-      } catch (error) { if (error.name !== "AbortError") failed += 1; }
+        await runWithRetry(id);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          const word = state.words.find((item) => item.id === id);
+          failures.push({ term: word?.term || id, reason: error.message || "未知错误", attempts: error.attempts || 1 });
+        }
+      }
       completed += 1;
       panel.querySelector("#batch-count").textContent = `${completed} / ${ids.length}`;
       panel.querySelector("#batch-bar").style.width = `${completed / ids.length * 100}%`;
@@ -645,10 +821,22 @@ async function runBatchEnrichment(ids) {
   await Promise.all(Array.from({ length: workerCount }, () => runWorker()));
   state.batchRunning = false;
   state.batchAbortController = null;
-  panel.remove();
   if (state.view === "manage") renderManage(); else render();
-  if (stopped) toast(`批处理已停止：已处理 ${completed} / ${ids.length}`, "error");
-  else toast(failed ? `批处理完成：成功 ${ids.length - failed}，失败 ${failed}` : `已完成 ${ids.length} 个独立单词请求`, failed ? "error" : "success");
+  if (stopped) {
+    panel.remove();
+    toast(`批处理已停止：已处理 ${completed} / ${ids.length}`, "error");
+  } else if (failures.length) {
+    panel.querySelector(".batch-progress-head strong").textContent = `批处理完成：成功 ${ids.length - failures.length}，失败 ${failures.length}`;
+    const detail = panel.querySelector("#batch-detail");
+    detail.hidden = false;
+    detail.innerHTML = `<div class="batch-failure-list">${failures.map((item) => `<p><strong>${escapeHtml(item.term)}</strong><span>${escapeHtml(item.reason)}（尝试 ${item.attempts} 次）</span></p>`).join("")}</div><button class="secondary-btn small-btn" id="close-batch-result" type="button">关闭结果</button>`;
+    panel.querySelector("#stop-batch").remove();
+    panel.querySelector("#close-batch-result").addEventListener("click", () => panel.remove());
+    toast(`批处理完成：${failures.length} 条仍需处理，失败明细已保留`, "error");
+  } else {
+    panel.remove();
+    toast(`已完整补全 ${ids.length} 个词条`);
+  }
 }
 
 function askEnrichAll() {

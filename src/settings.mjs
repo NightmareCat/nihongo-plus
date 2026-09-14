@@ -12,6 +12,7 @@ const DEFAULTS = {
   exampleCount: 2,
   concurrency: 3,
   requestTimeoutSeconds: 60,
+  learningAutoFlipSeconds: 60,
   providers: {
     deepseek: { label: "DeepSeek 官方", baseUrl: "https://api.deepseek.com", model: "deepseek-v4-flash" },
     "opencode-go": { label: "OpenCode Go", baseUrl: "https://opencode.ai/zen/go/v1", model: "deepseek-v4.1-flash" },
@@ -20,6 +21,8 @@ const DEFAULTS = {
 const MAX_CONCURRENCY = 50;
 const MIN_REQUEST_TIMEOUT_SECONDS = 10;
 const MAX_REQUEST_TIMEOUT_SECONDS = 600;
+const MIN_LEARNING_AUTO_FLIP_SECONDS = 10;
+const MAX_LEARNING_AUTO_FLIP_SECONDS = 600;
 
 async function readJson(file, fallback) {
   try { return JSON.parse(await fs.readFile(file, "utf8")); }
@@ -72,6 +75,11 @@ export async function saveSettings(input = {}) {
     requestTimeoutSeconds: Math.min(
       MAX_REQUEST_TIMEOUT_SECONDS,
       Math.max(MIN_REQUEST_TIMEOUT_SECONDS, Math.trunc(Number(input.requestTimeoutSeconds ?? current.requestTimeoutSeconds) || 60)),
+    ),
+    // 自动翻页需留出充分阅读时间，默认 1 分钟，并限制在 10 秒至 10 分钟之间。
+    learningAutoFlipSeconds: Math.min(
+      MAX_LEARNING_AUTO_FLIP_SECONDS,
+      Math.max(MIN_LEARNING_AUTO_FLIP_SECONDS, Math.trunc(Number(input.learningAutoFlipSeconds ?? current.learningAutoFlipSeconds) || 60)),
     ),
     providers: {
       deepseek: {

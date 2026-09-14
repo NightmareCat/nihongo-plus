@@ -5,7 +5,7 @@
 
 import assert from "node:assert/strict";
 import test from "node:test";
-import { fillMissingStoredCategory, normalizeAiPayload } from "../src/word-schema.mjs";
+import { fillMissingStoredCategory, isWordEligibleForPractice, normalizeAiPayload, normalizeStoredWord, normalizeWordPatch } from "../src/word-schema.mjs";
 
 test("保留标准 partOfSpeech.category 分类", () => {
   const result = normalizeAiPayload({ partOfSpeech: { category: "動詞", detail: "五段活用" } });
@@ -64,4 +64,21 @@ test("读取旧词条时把界面不支持的分类归一化", () => {
     tags: ["口语", "句型"],
   });
   assert.equal(word.partOfSpeech.category, "语法结构");
+});
+
+test("学习分类仅接受正常学习和暂不学习", () => {
+  assert.equal(normalizeWordPatch({ studyStatus: "paused" }).studyStatus, "paused");
+  assert.equal(normalizeWordPatch({ studyStatus: "unexpected" }).studyStatus, "active");
+});
+
+test("旧词条默认可练习，暂不学习词条从记忆与考核候选中排除", () => {
+  assert.equal(normalizeStoredWord({ term: "既有词条" }).studyStatus, "active");
+  assert.equal(isWordEligibleForPractice({}), true);
+  assert.equal(isWordEligibleForPractice({ studyStatus: "paused" }), false);
+});
+
+test("JLPT 只接受标准等级并兼容不适用别名", () => {
+  assert.equal(normalizeAiPayload({ jlpt: "JLPT N３" }).jlpt, "N3");
+  assert.equal(normalizeAiPayload({ jlpt: "不適用" }).jlpt, "不适用");
+  assert.equal(normalizeAiPayload({ jlpt: "未知" }).jlpt, "未定");
 });

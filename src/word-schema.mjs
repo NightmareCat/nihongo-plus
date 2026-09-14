@@ -4,6 +4,8 @@
  */
 
 const INVALID_TEXT = new Set(["[object Object]", "undefined", "null"]);
+const VALID_JLPT = new Set(["N5", "N4", "N3", "N2", "N1"]);
+const JLPT_NOT_APPLICABLE = new Set(["不适用", "不適用", "N/A", "NA", "无", "無", "なし", "該当なし"]);
 const SUPPORTED_CATEGORIES = new Set(["未分类", "名词", "动词", "形容词", "副词", "语法结构", "固定搭配", "惯用语", "接续词", "感叹词", "助词", "其他"]);
 const CATEGORY_RULES = [
   [/慣用|惯用/, "惯用语"],
@@ -17,6 +19,13 @@ const CATEGORY_RULES = [
   [/名詞|名词/, "名词"],
   [/副詞|副词/, "副词"],
 ];
+
+/**
+ * @description 规范化词条的学习分类；未知值按“正常学习”处理，兼容既有词库。
+ */
+function canonicalStudyStatus(value) {
+  return text(value, ["studyStatus", "status"]) === "paused" ? "paused" : "active";
+}
 
 function text(value, keys = []) {
   if (value === null || value === undefined) return "";
@@ -38,6 +47,14 @@ function text(value, keys = []) {
 function stringList(value, keys) {
   const list = Array.isArray(value) ? value : value === null || value === undefined || value === "" ? [] : [value];
   return list.map((item) => text(item, keys)).filter(Boolean);
+}
+
+function canonicalJlpt(value) {
+  const raw = text(value, ["level"]).normalize("NFKC").trim();
+  const compact = raw.toUpperCase().replace(/\s+/g, "").replace(/^JLPT[-：:]?/, "");
+  if (VALID_JLPT.has(compact)) return compact;
+  if (JLPT_NOT_APPLICABLE.has(raw) || JLPT_NOT_APPLICABLE.has(compact)) return "不适用";
+  return "未定";
 }
 
 function categoryFromText(value) {
@@ -106,12 +123,13 @@ export function normalizeWordPatch(input = {}) {
   if (Object.hasOwn(input, "reading")) output.reading = text(input.reading, ["reading", "kana"]);
   if (Object.hasOwn(input, "partOfSpeech")) output.partOfSpeech = normalizePartOfSpeech(input.partOfSpeech, [input.tags]);
   if (Object.hasOwn(input, "meanings")) output.meanings = stringList(input.meanings, ["meaning", "definition", "chinese", "translation"]);
-  if (Object.hasOwn(input, "jlpt")) output.jlpt = text(input.jlpt, ["level"]) || "未定";
+  if (Object.hasOwn(input, "jlpt")) output.jlpt = canonicalJlpt(input.jlpt);
   if (Object.hasOwn(input, "tags")) output.tags = stringList(input.tags, ["tag", "label"]);
   if (Object.hasOwn(input, "conjugations")) output.conjugations = normalizeConjugations(input.conjugations);
   if (Object.hasOwn(input, "examples")) output.examples = normalizeExamples(input.examples);
   if (Object.hasOwn(input, "notes")) output.notes = text(input.notes, ["note", "description"]);
   if (Object.hasOwn(input, "aiStatus")) output.aiStatus = text(input.aiStatus, ["status"]);
+  if (Object.hasOwn(input, "studyStatus")) output.studyStatus = canonicalStudyStatus(input.studyStatus);
   return output;
 }
 
@@ -129,8 +147,16 @@ export function normalizeStoredWord(word) {
       examples: word.examples,
       notes: word.notes,
       aiStatus: word.aiStatus,
+      studyStatus: word.studyStatus,
     }),
   };
+}
+
+/**
+ * @description 记忆与考核模块共用的准入接口；暂不学习的词不会进入练习牌组。
+ */
+export function isWordEligibleForPractice(word) {
+  return canonicalStudyStatus(word?.studyStatus) === "active";
 }
 
 export function fillMissingStoredCategory(word) {
