@@ -16,12 +16,16 @@ import {
   getCollections,
   getLibrary,
   initializeRepository,
+  normalizeTerm,
   saveCollection,
   updateWord,
 } from "./src/repository.mjs";
 import { getPublicSettings, saveSettings } from "./src/settings.mjs";
+import { generateQuizQuestion, QUIZ_TYPES, compatibleQuizTypes } from "./src/quiz.mjs";
+import { getQuizProgress, normalizeMemoryRecord, pickWeightedWord, updateQuizProgress } from "./src/quiz-progress.mjs";
 
 const MIME = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".json": "application/json; charset=utf-8", ".svg": "image/svg+xml" };
+const activeQuizQuestions = new Map();
 
 function sendJson(response, status, data) {
   response.writeHead(status, { "Content-Type": MIME[".json"], "Cache-Control": "no-store" });
@@ -43,12 +47,98 @@ async function handleApi(request, response, url) {
   const parts = url.pathname.split("/").filter(Boolean);
 
   if (request.method === "GET" && url.pathname === "/api/bootstrap") {
-    const [library, collectionData, settings] = await Promise.all([getLibrary(), getCollections(), getPublicSettings()]);
+    const [library, collectionData, settings, quizProgress] = await Promise.all([getLibrary(), getCollections(), getPublicSettings(), getQuizProgress()]);
     return sendJson(response, 200, {
       library,
       collections: collectionData.collections,
-      options: { conjugations: conjugationOptions },
+      options: { conjugations: conjugationOptions, quizTypes: QUIZ_TYPES.map(({ id, label }) => ({ id, label })) },
       settings,
+      quizProgress,
+    });
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/quiz/generate") {
+    // 丢弃长时间未提交的答案，避免本地服务长期运行时积累无效题目。
+    const expiry = Date.now() - 30 * 60 * 1_000;
+    for (const [id, question] of activeQuizQuestions) {
+      if (question.createdAt < expiry) activeQuizQuestions.delete(id);
+    }
+    const body = await readBody(request);
+    const [library, settings, quizProgress] = await Promise.all([getLibrary(), getPublicSettings(), getQuizProgress()]);
+    const requestedType = QUIZ_TYPES.find((type) => type.id === body.type);
+    const eligibleWords = library.words.filter((word) => word.studyStatus !== "paused"
+      && settings.practiceJlptLevels.includes(word.jlpt)
+      && (!requestedType?.verbsOnly || word.partOfSpeech?.category === "动词"));
+    if (!eligibleWords.length) {
+      return sendJson(response, 422, { error: requestedType?.verbsOnly ? "当前练习范围内没有可用于动词变形题的动词" : "当前练习范围内没有可出题的词条" });
+    }
+
+    // 先按记忆薄弱程度选择核心词，再选择该词兼容的题型。
+    const word = pickWeightedWord(eligibleWords, quizProgress.words);
+    const compatibleTypes = requestedType ? [requestedType] : compatibleQuizTypes(word);
+    const type = compatibleTypes[Math.floor(Math.random() * compatibleTypes.length)];
+    const distractorWords = library.words
+      .filter((item) => item.id !== word.id)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 8)
+      .map(({ term, reading, meanings, partOfSpeech, jlpt }) => ({ term, reading, meanings, partOfSpeech, jlpt }));
+    const abortController = new AbortController();
+    const cancelUpstream = () => { if (!response.writableEnded) abortController.abort(); };
+    response.once("close", cancelUpstream);
+    try {
+      const generated = await generateQuizQuestion(word, type, distractorWords, abortController.signal);
+      activeQuizQuestions.set(generated.id, { ...generated, wordId: word.id, wordTerm: word.term, createdAt: Date.now() });
+      // 显式挑选公开题面字段，答案、解析和干扰词资料只在提交后返回。
+      const publicQuestion = {
+        id: generated.id,
+        type: generated.type,
+        typeLabel: generated.typeLabel,
+        question: generated.question,
+        stem: generated.stem,
+        options: generated.options.map(({ id, text }) => ({ id, text })),
+      };
+      return sendJson(response, 200, {
+        question: {
+          ...publicQuestion,
+          memoryLevel: normalizeMemoryRecord(quizProgress.words[word.id]).level,
+        },
+      });
+    } finally {
+      response.off("close", cancelUpstream);
+    }
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/quiz/answer") {
+    const body = await readBody(request);
+    const stored = activeQuizQuestions.get(String(body.questionId || ""));
+    if (!stored) return sendJson(response, 404, { error: "该试题已失效，请生成下一题" });
+    const selectedOptionId = String(body.optionId || "");
+    if (!stored.options.some((option) => option.id === selectedOptionId)) return sendJson(response, 400, { error: "请选择一个有效选项" });
+    activeQuizQuestions.delete(stored.id);
+    const correct = selectedOptionId === stored.correctOptionId;
+    const [progress, library] = await Promise.all([updateQuizProgress(stored.wordId, correct), getLibrary()]);
+    // “是否收录”始终以本地词库为准；已收录词优先展示人工维护的释义和等级。
+    const distractorWords = stored.distractorWords.map((item) => {
+      const existing = library.words.find((word) => normalizeTerm(word.term) === normalizeTerm(item.term));
+      return {
+        term: item.term,
+        meaning: existing?.meanings?.join("；") || item.meaning || "暂无释义",
+        jlpt: existing?.jlpt && existing.jlpt !== "未定" ? existing.jlpt : item.jlpt,
+        collected: Boolean(existing),
+        wordId: existing?.id || "",
+      };
+    });
+    return sendJson(response, 200, {
+      result: {
+        correct,
+        correctOptionId: stored.correctOptionId,
+        wordId: stored.wordId,
+        wordTerm: stored.wordTerm,
+        analysis: stored.analysis,
+        options: stored.options,
+        distractorWords,
+        progress,
+      },
     });
   }
 

@@ -1,14 +1,16 @@
 /**
  * @file app.js
- * @description 前端交互控制器；管理页面路由、离线查重、词条编辑、筛选、子词库与 AI 补全。
+ * @description 前端交互控制器；管理词库、随机学习、AI 单选试题与记忆水平反馈。
  */
 
 const state = {
   words: [],
   collections: [],
   options: { conjugations: [] },
+  quizProgress: { words: {} },
   settings: {
-    aiProvider: "deepseek", exampleCount: 2, concurrency: 3, requestTimeoutSeconds: 60, learningAutoFlipSeconds: 60,
+    aiProvider: "deepseek", exampleCount: 2, concurrency: 3, requestTimeoutSeconds: 60, quizPrefetchCount: 2, learningAutoFlipSeconds: 60,
+    practiceJlptLevels: ["N5", "N4", "N3", "N2", "N1"],
     providers: { deepseek: { label: "DeepSeek 官方", model: "deepseek-v4-flash" }, "opencode-go": { label: "OpenCode Go", model: "deepseek-v4.1-flash" } },
     keyConfigured: { deepseek: false, "opencode-go": false },
   },
@@ -22,6 +24,11 @@ const state = {
   pageSize: 18,
   // 随机学习牌组只保存词条 ID，词条编辑后仍能读取最新内容。
   learning: { wordIds: [], index: 0, autoPlay: false, timer: null },
+  // 单题状态保留在页面切换之间；正确答案只会在服务端判分后进入 result。
+  quiz: {
+    status: "idle", type: "all", question: null, result: null, selectedOptionId: "", answered: 0, correct: 0,
+    reserveQuestions: [], prefetching: 0, generationEpoch: 0, prefetchError: "",
+  },
 };
 
 const app = document.querySelector("#app");
@@ -35,13 +42,47 @@ const pageTitles = {
   collections: ["子词库"],
   settings: ["平台设置"],
   learn: ["随机单词"],
-  quiz: ["考核测试"],
+  quiz: ["单词试题"],
 };
 
 const escapeHtml = (value = "") => String(value).replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
 const rubyHtml = (value = "") => escapeHtml(String(value).replace(/\\([<>])/g, "$1"))
   .replace(/&lt;(\/?)ruby&gt;/gi, "<$1ruby>")
   .replace(/&lt;(\/?)rt&gt;/gi, "<$1rt>");
+
+/**
+ * @description 从带 Ruby 注音的例句中提取日文原文，复制时排除 rt 内的假名。
+ */
+function japaneseOriginalText(value = "") {
+  const container = document.createElement("div");
+  container.innerHTML = rubyHtml(value);
+  container.querySelectorAll("rt").forEach((annotation) => annotation.remove());
+  return container.textContent.trim();
+}
+
+/**
+ * @description 写入系统剪贴板，并为不支持 Clipboard API 的浏览器提供兼容方案。
+ */
+async function copyTextToClipboard(value) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(value);
+      return;
+    } catch {
+      // 剪贴板权限被拒绝时继续尝试传统复制方案。
+    }
+  }
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.append(textarea);
+  textarea.select();
+  const copied = document.execCommand("copy");
+  textarea.remove();
+  if (!copied) throw new Error("浏览器未允许访问剪贴板");
+}
 const validJlpt = (value) => ["N5", "N4", "N3", "N2", "N1", "不适用"].includes(value);
 const missingWordFields = (word) => [
   !word.reading && "读音",
@@ -63,8 +104,9 @@ const wordIsBlank = (word) => !word.reading
   && !word.conjugations?.length
   && !word.examples?.length;
 const wordNeedsEnrichment = (word) => !wordComplete(word);
-// 记忆与未来考核共用的准入规则，后续启用考核时可直接调用 quizEligibleWords。
-const wordEligibleForPractice = (word) => word.studyStatus !== "paused";
+// 随机学习与未来考核共用同一准入规则，确保设置中的等级范围始终一致生效。
+const wordEligibleForPractice = (word) => word.studyStatus !== "paused"
+  && (state.settings.practiceJlptLevels || []).includes(word.jlpt);
 const memoryEligibleWords = () => state.words.filter(wordEligibleForPractice);
 const quizEligibleWords = () => state.words.filter(wordEligibleForPractice);
 const normalize = (value = "") => String(value).normalize("NFKC").trim().replace(/^[~〜～]+|[~〜～]+$/g, "").replace(/\s+/g, "").toLocaleLowerCase("ja-JP");
@@ -82,7 +124,7 @@ function applyTheme(preference = localStorage.theme || "system") {
 async function api(url, options = {}) {
   // 前端比服务端多等待 10 秒，确保能够显示服务端返回的明确超时原因。
   const enrichmentTimeoutMs = ((state.settings.requestTimeoutSeconds || 60) + 10) * 1_000;
-  const { timeoutMs = url.includes("/enrich") ? enrichmentTimeoutMs : 15_000, ...fetchOptions } = options;
+  const { timeoutMs = (url.includes("/enrich") || url.includes("/quiz/generate")) ? enrichmentTimeoutMs : 15_000, ...fetchOptions } = options;
   const timeoutController = new AbortController();
   const timer = setTimeout(() => timeoutController.abort(), timeoutMs);
   const signal = fetchOptions.signal
@@ -133,19 +175,25 @@ function render() {
   else if (state.view === "collections") renderCollections();
   else if (state.view === "settings") renderSettings();
   else if (state.view === "learn") renderLearn();
+  else if (state.view === "quiz") renderQuiz();
   else renderReserved(state.view);
 }
 
 /**
- * @description 使用 Fisher-Yates 算法生成无重复的随机学习顺序。
+ * @description 按记忆薄弱程度生成加权且无重复的随机学习顺序。
  */
 function shuffleLearningWords() {
-  const wordIds = memoryEligibleWords().map((word) => word.id);
-  for (let index = wordIds.length - 1; index > 0; index -= 1) {
-    const target = Math.floor(Math.random() * (index + 1));
-    [wordIds[index], wordIds[target]] = [wordIds[target], wordIds[index]];
-  }
-  state.learning.wordIds = wordIds;
+  // 加权无放回排序：薄弱和未练习词更可能排在牌组前方，同时保证每轮不重复。
+  state.learning.wordIds = memoryEligibleWords()
+    .map((word) => {
+      const progress = state.quizProgress.words[word.id] || {};
+      const level = Number.isFinite(Number(progress.level)) ? Number(progress.level) : 50;
+      const weakness = (100 - level) / 100;
+      const weight = 1 + weakness * weakness * 5 + (!progress.attempts ? 2 : 0);
+      return { id: word.id, key: Math.pow(Math.random(), 1 / weight) };
+    })
+    .sort((left, right) => right.key - left.key)
+    .map((item) => item.id);
   state.learning.index = 0;
 }
 
@@ -162,7 +210,11 @@ function renderLearn() {
   const word = state.words.find((item) => item.id === wordIds[index]);
   if (!word) {
     const hasWords = state.words.length > 0;
-    app.innerHTML = `<section class="card empty-state"><div><strong>还没有可学习的单词</strong><p>${hasWords ? "当前词条均已设为暂不学习，可在词条编辑器中恢复。" : "先向个人词库添加词条，再回到这里开始随机学习。"}</p>${hasWords ? `<button class="primary-btn" data-go="manage">管理词库</button>` : `<button class="primary-btn" data-go="add">添加第一个单词</button>`}</div></section>`;
+    const noLevelSelected = !(state.settings.practiceJlptLevels || []).length;
+    const emptyReason = noLevelSelected
+      ? "当前没有勾选任何练习等级，请先到设置中选择至少一个 JLPT 等级。"
+      : "当前等级范围内没有可学习的词条；你可以调整等级设置，或在词条编辑器中恢复暂停的词条。";
+    app.innerHTML = `<section class="card empty-state"><div><strong>还没有可学习的单词</strong><p>${hasWords ? emptyReason : "先向个人词库添加词条，再回到这里开始随机学习。"}</p>${hasWords ? `<button class="primary-btn" data-go="settings">调整等级设置</button>` : `<button class="primary-btn" data-go="add">添加第一个单词</button>`}</div></section>`;
     bindCommonActions();
     return;
   }
@@ -191,9 +243,9 @@ function renderLearn() {
           <section class="learn-section"><h3>词条信息</h3>${partDetails.length ? `<dl class="word-facts"><div><dt>词性</dt><dd>${escapeHtml(word.partOfSpeech?.category || "未分类")}</dd></div><div><dt>细分</dt><dd>${escapeHtml(word.partOfSpeech?.detail || "—")}</dd></div><div><dt>活用类型</dt><dd>${escapeHtml(word.partOfSpeech?.conjugationClass || "—")}</dd></div><div><dt>自他动</dt><dd>${escapeHtml(word.partOfSpeech?.transitivity || "—")}</dd></div></dl>` : `<p class="learn-empty">暂无词性信息</p>`}</section>
         </div>
 
-        <section class="learn-section"><h3>例句</h3><div class="learn-example-list">${word.examples?.length ? word.examples.map((example, exampleIndex) => `<article><span>${String(exampleIndex + 1).padStart(2, "0")}</span><div><p class="ruby-preview">${rubyHtml(example.japanese)}</p><small>${escapeHtml(example.chinese || "暂无翻译")}</small></div></article>`).join("") : `<p class="learn-empty">暂无例句</p>`}</div></section>
+        <section class="learn-section"><h3>例句</h3><div class="learn-example-list">${word.examples?.length ? word.examples.map((example, exampleIndex) => `<article><span>${String(exampleIndex + 1).padStart(2, "0")}</span><div class="learn-example-content"><div class="learn-example-japanese"><p class="ruby-preview">${rubyHtml(example.japanese)}</p><button class="copy-example-btn" type="button" data-copy-example="${exampleIndex}" aria-label="复制第 ${exampleIndex + 1} 条例句的日文原文" title="复制不含注音的日文原文">复制原文</button></div><small>${escapeHtml(example.chinese || "暂无翻译")}</small></div></article>`).join("") : `<p class="learn-empty">暂无例句</p>`}</div></section>
 
-        <section class="learn-section"><h3>活用</h3>${word.conjugations?.length ? `<div class="learn-conjugations">${word.conjugations.map((item) => `<article><div><strong>${escapeHtml(item.name || "活用")}</strong><b>${escapeHtml(item.form || "—")}</b></div>${item.example || item.exampleChinese ? `<p class="ruby-preview">${rubyHtml(item.example)}</p><small>${escapeHtml(item.exampleChinese || "")}</small>` : ""}</article>`).join("")}</div>` : `<p class="learn-empty">此词条暂无活用信息</p>`}</section>
+        <section class="learn-section"><h3>活用</h3>${word.conjugations?.length ? `<div class="learn-conjugations">${word.conjugations.map((item, conjugationIndex) => `<article><div><strong>${escapeHtml(item.name || "活用")}</strong><b>${escapeHtml(item.form || "—")}</b></div>${item.example || item.exampleChinese ? `<div class="learn-example-japanese"><p class="ruby-preview">${rubyHtml(item.example)}</p>${item.example ? `<button class="copy-example-btn" type="button" data-copy-conjugation="${conjugationIndex}" aria-label="复制${escapeHtml(item.name || "该活用")}例句的日文原文" title="复制不含注音的日文原文">复制原文</button>` : ""}</div><small>${escapeHtml(item.exampleChinese || "")}</small>` : ""}</article>`).join("")}</div>` : `<p class="learn-empty">此词条暂无活用信息</p>`}</section>
 
         ${word.notes ? `<section class="learn-section learn-notes"><h3>个人笔记</h3><p>${escapeHtml(word.notes)}</p></section>` : ""}
       </article>
@@ -213,6 +265,28 @@ function renderLearn() {
   document.querySelector("#learn-prev").addEventListener("click", () => { state.learning.index -= 1; renderLearn(); scrollTo({ top: 0, behavior: "smooth" }); });
   document.querySelector("#learn-next").addEventListener("click", () => advanceLearningWord(true));
   document.querySelector("#pronounce-word").addEventListener("click", () => pronounceJapanese(word.term, word.reading));
+  document.querySelectorAll("[data-copy-example]").forEach((button) => button.addEventListener("click", async () => {
+    const example = word.examples[Number(button.dataset.copyExample)];
+    const originalText = japaneseOriginalText(example?.japanese);
+    if (!originalText) return toast("这条例句没有可复制的日文原文", "error");
+    try {
+      await copyTextToClipboard(originalText);
+      toast("已复制日文原文");
+    } catch (error) {
+      toast(error.message || "复制失败", "error");
+    }
+  }));
+  document.querySelectorAll("[data-copy-conjugation]").forEach((button) => button.addEventListener("click", async () => {
+    const conjugation = word.conjugations[Number(button.dataset.copyConjugation)];
+    const originalText = japaneseOriginalText(conjugation?.example);
+    if (!originalText) return toast("这条例句没有可复制的日文原文", "error");
+    try {
+      await copyTextToClipboard(originalText);
+      toast("已复制日文原文");
+    } catch (error) {
+      toast(error.message || "复制失败", "error");
+    }
+  }));
   bindCommonActions();
   scheduleLearningAutoPlay();
 }
@@ -424,7 +498,7 @@ function renderManage() {
     </div>
     <section class="card table-wrap">
       <table class="word-table">
-        <thead><tr><th><input class="checkbox" id="select-page" type="checkbox" aria-label="选择本页" /></th><th>词条</th><th>分类</th><th>中文释义</th><th>难度</th><th>状态</th><th></th></tr></thead>
+        <thead><tr><th><input class="checkbox" id="select-page" type="checkbox" aria-label="选择本页" /></th><th>词条</th><th>分类</th><th>中文释义</th><th>难度</th><th>记忆</th><th>状态</th><th></th></tr></thead>
         <tbody>${visible.map((word) => `
           <tr data-edit="${word.id}">
             <td><input class="checkbox row-check" type="checkbox" value="${word.id}" ${state.selected.has(word.id) ? "checked" : ""} aria-label="选择 ${escapeHtml(word.term)}" /></td>
@@ -432,6 +506,7 @@ function renderManage() {
             <td><span class="badge">${escapeHtml(word.partOfSpeech?.category || "未分类")}</span></td>
             <td>${escapeHtml(word.meanings?.join("；") || "—")}</td>
             <td><span class="badge ${word.jlpt !== "未定" ? "green" : ""}">${escapeHtml(word.jlpt)}</span></td>
+            <td><span class="badge ${state.quizProgress.words[word.id]?.attempts ? "green" : ""}" title="${state.quizProgress.words[word.id]?.attempts || 0} 次作答">${state.quizProgress.words[word.id]?.level ?? 50}</span></td>
             <td><span class="badge ${state.enrichingIds.has(word.id) ? "accent" : wordComplete(word) ? "green" : "accent"}">${state.enrichingIds.has(word.id) ? "后台生成中" : wordComplete(word) ? "完整" : "待补"}</span></td>
             <td><div class="row-actions"><button class="icon-btn delete-one" data-id="${word.id}" aria-label="删除 ${escapeHtml(word.term)}">×</button></div></td>
           </tr>`).join("")}</tbody>
@@ -535,13 +610,21 @@ function renderSettings() {
               <div class="field"><label>主例句数量</label><select class="select" name="exampleCount">${[1,2,3,4,5].map((n) => `<option value="${n}" ${settings.exampleCount === n ? "selected" : ""}>${n} 个</option>`).join("")}</select></div>
               <div class="field"><label>并发处理数</label><input class="input" type="number" name="concurrency" value="${settings.concurrency}" min="1" max="50" step="1" inputmode="numeric" required /><small>可直接输入 1～50；OpenCode Go 未公布固定并发上限，建议先使用 3～5。</small></div>
               <div class="field"><label>单次生成超时（秒）</label><input class="input" type="number" name="requestTimeoutSeconds" value="${settings.requestTimeoutSeconds}" min="10" max="600" step="1" inputmode="numeric" required /><small>可输入 10～600 秒；复杂词条开启思考时建议 120 秒。</small></div>
+              <div class="field"><label>试题储备数量</label><select class="select" name="quizPrefetchCount">${[1,2,3].map((n) => `<option value="${n}" ${settings.quizPrefetchCount === n ? "selected" : ""}>${n} 道</option>`).join("")}</select><small>当前题显示后并行预生成，数量越多切题越快，也会更早消耗 API 请求。</small></div>
             </div>
           </div>
 
           <div class="settings-section">
-            <div class="section-head"><div><h2>学习偏好</h2><p>控制随机单词页的自动阅读节奏。</p></div></div>
+            <div class="section-head"><div><h2>学习与测试范围</h2><p>控制随机单词与 AI 单词试题使用的词条范围。</p></div></div>
             <div class="form-grid">
               <div class="field"><label>自动翻页间隔（秒）</label><input class="input" type="number" name="learningAutoFlipSeconds" value="${settings.learningAutoFlipSeconds || 60}" min="10" max="600" step="1" inputmode="numeric" required /><small>默认 60 秒，可设置为 10～600 秒；手动翻页后会重新计时。</small></div>
+              <fieldset class="field full practice-level-field">
+                <legend>练习等级（可多选）</legend>
+                <div class="practice-level-options">
+                  ${["N5", "N4", "N3", "N2", "N1"].map((level) => `<label class="check-chip"><input type="checkbox" name="practiceJlptLevels" value="${level}" ${(settings.practiceJlptLevels || []).includes(level) ? "checked" : ""} /> ${level}</label>`).join("")}
+                </div>
+                <small>默认全部勾选；未勾选的等级不会出现在随机单词和考核测试中。</small>
+              </fieldset>
             </div>
           </div>
 
@@ -575,7 +658,9 @@ function renderSettings() {
         exampleCount: Number(data.get("exampleCount")),
         concurrency: Number(data.get("concurrency")),
         requestTimeoutSeconds: Number(data.get("requestTimeoutSeconds")),
+        quizPrefetchCount: Number(data.get("quizPrefetchCount")),
         learningAutoFlipSeconds: Number(data.get("learningAutoFlipSeconds")),
+        practiceJlptLevels: data.getAll("practiceJlptLevels"),
         providers: {
           deepseek: { baseUrl: data.get("deepseekBaseUrl"), model: data.get("deepseekModel") },
           "opencode-go": { baseUrl: data.get("opencodeBaseUrl"), model: data.get("opencodeModel") },
@@ -592,9 +677,245 @@ function renderSettings() {
 }
 
 async function updateSettings(patch) {
+  const previousProvider = state.settings.aiProvider;
+  const previousModel = activeProvider()?.model;
   const { settings } = await api("/api/settings", { method: "PATCH", body: JSON.stringify(patch) });
   state.settings = settings;
+  const quiz = state.quiz;
+  const providerChanged = previousProvider !== settings.aiProvider || previousModel !== activeProvider()?.model;
+  if (providerChanged) {
+    quiz.generationEpoch += 1;
+    quiz.reserveQuestions = [];
+    quiz.prefetching = 0;
+    quiz.prefetchError = "";
+  } else {
+    quiz.reserveQuestions = quiz.reserveQuestions.slice(0, settings.quizPrefetchCount);
+  }
   return settings;
+}
+
+/**
+ * @description 渲染 AI 单选试题；作答前不接收答案与解析，提交后再标记各选项。
+ */
+function renderQuiz() {
+  const quiz = state.quiz;
+  const eligibleCount = quizEligibleWords().length;
+  const reserveTarget = Math.min(3, Math.max(1, Number(state.settings.quizPrefetchCount) || 2));
+  const types = state.options.quizTypes || [];
+  const question = quiz.question;
+  const result = quiz.result;
+  // 先于模板构造完成初始化，避免结果页引用处触发暂时性死区错误。
+  const resultDistractorWords = Array.isArray(result?.distractorWords) ? result.distractorWords : [];
+  const accuracy = quiz.answered ? Math.round(quiz.correct / quiz.answered * 100) : 0;
+  const optionDetails = new Map((result?.options || []).map((option) => [option.id, option]));
+
+  let body = "";
+  if (quiz.status === "loading") {
+    body = `<section class="card quiz-loading"><span class="quiz-spinner" aria-hidden="true"></span><h2>AI 正在编写试题</h2><p>正在校验四个选项与唯一答案，请稍候。</p></section>`;
+  } else if (!question) {
+    body = `<section class="card quiz-welcome">
+      <div class="orb">試</div><span class="badge accent">JLPT N3</span>
+      <h2>AI 单词试题</h2>
+      <p>每题都会实时生成题干、四个选项和解析。核心词有时是正确答案，有时会成为干扰项；作答结果将调整它的记忆水平与后续出现概率。</p>
+      <button class="primary-btn" id="generate-quiz" ${!eligibleCount || !aiConfigured() ? "disabled" : ""}>生成第一题</button>
+      ${!aiConfigured() ? `<p class="quiz-hint">请先在 <button class="text-link" data-go="settings">设置</button> 中配置当前 AI 的 API Key。</p>` : ""}
+      ${!eligibleCount ? `<p class="quiz-hint">当前学习等级范围内没有可出题的词条。</p>` : ""}
+    </section>`;
+  } else {
+    body = `<section class="card quiz-card">
+      <header class="quiz-card-head">
+        <div><span class="badge accent">${escapeHtml(question.typeLabel)}</span><span class="badge">N3 难度</span></div>
+        <div class="quiz-memory"><span>本题词记忆水平</span><strong>${result?.progress.level ?? question.memoryLevel}</strong><small>/ 100</small></div>
+      </header>
+      <div class="quiz-question">
+        <p class="quiz-instruction">${escapeHtml(question.question)}</p>
+        ${question.stem ? `<div class="quiz-stem">${rubyHtml(question.stem)}</div>` : ""}
+        <div class="quiz-options" role="radiogroup" aria-label="答案选项">
+          ${question.options.map((option, index) => {
+            const selected = quiz.selectedOptionId === option.id;
+            const correctOption = result?.correctOptionId === option.id;
+            const wrongSelection = Boolean(result && selected && !correctOption);
+            const detail = optionDetails.get(option.id);
+            return `<button type="button" class="quiz-option ${selected ? "selected" : ""} ${correctOption ? "correct" : ""} ${wrongSelection ? "wrong" : ""}" data-option-id="${option.id}" role="radio" aria-checked="${selected}" ${result ? "disabled" : ""}>
+              <span class="quiz-option-letter">${String.fromCharCode(65 + index)}</span>
+              <span class="quiz-option-copy"><strong>${rubyHtml(option.text)}</strong>${result && detail?.explanation ? `<small>${escapeHtml(detail.explanation)}</small>` : ""}</span>
+            </button>`;
+          }).join("")}
+        </div>
+        ${result ? `<div class="quiz-result ${result.correct ? "is-correct" : "is-wrong"}"><strong>${result.correct ? "回答正确" : "回答错误"}</strong><p>${escapeHtml(result.analysis || "本题暂无补充解析。")}</p><small>“${escapeHtml(result.wordTerm || "本题核心词")}”的记忆水平${result.correct ? "上升" : "下降"}至 ${result.progress.level}；后续抽取概率已同步调整。</small></div>
+        <section class="quiz-distractors">
+          <div class="quiz-distractor-head"><div><h3>干扰词速查</h3><p>收录状态来自本地词库实时检索；未收录词只保存词条本身。</p></div><span class="badge">${resultDistractorWords.length} 个</span></div>
+          ${resultDistractorWords.length ? `<div class="quiz-distractor-list">${resultDistractorWords.map((item, index) => `<article>
+            <div class="quiz-distractor-word"><strong>${rubyHtml(item.term)}</strong><span class="badge ${item.jlpt !== "未定" ? "accent" : ""}">${escapeHtml(item.jlpt || "未定")}</span></div>
+            <p>${escapeHtml(item.meaning || "暂无释义")}</p>
+            <div class="quiz-distractor-state"><span class="badge ${item.collected ? "green" : ""}">${item.collected ? "已收录" : "未收录"}</span>${item.collected ? "" : `<button type="button" class="secondary-btn small-btn" data-add-distractor="${index}">＋ 添加到词库</button>`}</div>
+          </article>`).join("")}</div>` : `<p class="learn-empty">本题错误选项中没有需要单独收录的干扰词。</p>`}
+        </section>` : ""}
+      </div>
+      <footer class="quiz-actions">
+        ${result ? `<button class="primary-btn" id="next-quiz">生成下一题</button>` : `<button class="primary-btn" id="submit-quiz" ${quiz.selectedOptionId ? "" : "disabled"}>提交答案</button>`}
+      </footer>
+    </section>`;
+  }
+
+  app.innerHTML = `<div class="quiz-shell">
+    <section class="card quiz-toolbar">
+      <label><span>题型</span><select class="select" id="quiz-type" ${quiz.status === "loading" ? "disabled" : ""}><option value="all">智能混合</option>${types.map((type) => `<option value="${type.id}" ${quiz.type === type.id ? "selected" : ""}>${escapeHtml(type.label)}</option>`).join("")}</select></label>
+      <div class="quiz-session-stat"><span>本轮答题</span><strong>${quiz.answered}</strong><small>正确率 ${accuracy}%</small></div>
+      <div class="quiz-session-stat"><span>可用词条</span><strong>${eligibleCount}</strong><small>按记忆水平加权</small></div>
+      <div class="quiz-session-stat" id="quiz-reserve-status"><span>储备题</span><strong>${quiz.reserveQuestions.length}/${reserveTarget}</strong><small>${quiz.prefetching ? `正在生成 ${quiz.prefetching} 道` : quiz.prefetchError ? "后台补充失败" : "后台自动补充"}</small></div>
+    </section>
+    ${body}
+  </div>`;
+
+  document.querySelector("#quiz-type")?.addEventListener("change", (event) => {
+    quiz.type = event.target.value;
+    // 已储备题属于旧题型；递增代次后，仍在途的旧请求也不会进入新队列。
+    quiz.generationEpoch += 1;
+    quiz.reserveQuestions = [];
+    quiz.prefetching = 0;
+    quiz.prefetchError = "";
+    if (quiz.question) prefillQuizReserve();
+    updateQuizReserveIndicator();
+  });
+  document.querySelector("#generate-quiz")?.addEventListener("click", generateQuizQuestion);
+  document.querySelector("#next-quiz")?.addEventListener("click", generateQuizQuestion);
+  document.querySelectorAll("[data-option-id]").forEach((button) => button.addEventListener("click", () => {
+    quiz.selectedOptionId = button.dataset.optionId;
+    renderQuiz();
+  }));
+  document.querySelector("#submit-quiz")?.addEventListener("click", submitQuizAnswer);
+  document.querySelectorAll("[data-add-distractor]").forEach((button) => button.addEventListener("click", () => addQuizDistractorWord(Number(button.dataset.addDistractor), button)));
+  bindCommonActions();
+  if (question && quiz.status === "ready") queueMicrotask(prefillQuizReserve);
+}
+
+/**
+ * @description 一键收录只提交日语词条，不采纳 AI 生成的释义和 JLPT，留待人工或后续补全。
+ */
+async function addQuizDistractorWord(index, button) {
+  const item = state.quiz.result?.distractorWords?.[index];
+  if (!item || item.collected) return;
+  const existing = state.words.find((word) => normalize(word.term) === normalize(item.term));
+  if (existing) {
+    item.collected = true;
+    item.wordId = existing.id;
+    renderQuiz();
+    return;
+  }
+  button.disabled = true;
+  button.textContent = "添加中…";
+  try {
+    const { word } = await api("/api/words", { method: "POST", body: JSON.stringify({ term: item.term }) });
+    state.words.unshift(word);
+    item.collected = true;
+    item.wordId = word.id;
+    renderQuiz();
+    toast(`已收录“${word.term}”，详细资料可稍后补充`);
+  } catch (error) {
+    button.disabled = false;
+    button.textContent = "＋ 添加到词库";
+    toast(error.message, "error");
+  }
+}
+
+async function requestQuizQuestion(type = state.quiz.type) {
+  const { question } = await api("/api/quiz/generate", {
+    method: "POST",
+    body: JSON.stringify({ type: type === "all" ? "" : type }),
+  });
+  return question;
+}
+
+/**
+ * @description 在用户阅读当前题时并行补齐储备队列，不阻塞选项交互。
+ */
+function prefillQuizReserve() {
+  const quiz = state.quiz;
+  if (!quiz.question || !aiConfigured()) return;
+  const target = Math.min(3, Math.max(1, Number(state.settings.quizPrefetchCount) || 2));
+  const needed = target - quiz.reserveQuestions.length - quiz.prefetching;
+  if (needed <= 0) return;
+  const epoch = quiz.generationEpoch;
+  const requestedType = quiz.type;
+  quiz.prefetching += needed;
+  quiz.prefetchError = "";
+  updateQuizReserveIndicator();
+
+  for (let index = 0; index < needed; index += 1) {
+    requestQuizQuestion(requestedType)
+      .then((question) => {
+        if (quiz.generationEpoch !== epoch) return;
+        quiz.reserveQuestions.push(question);
+        quiz.prefetchError = "";
+      })
+      .catch((error) => {
+        if (quiz.generationEpoch === epoch) quiz.prefetchError = error.message || "预生成失败";
+      })
+      .finally(() => {
+        if (quiz.generationEpoch !== epoch) return;
+        quiz.prefetching = Math.max(0, quiz.prefetching - 1);
+        updateQuizReserveIndicator();
+      });
+  }
+}
+
+function updateQuizReserveIndicator() {
+  const panel = document.querySelector("#quiz-reserve-status");
+  if (!panel) return;
+  const quiz = state.quiz;
+  const target = Math.min(3, Math.max(1, Number(state.settings.quizPrefetchCount) || 2));
+  panel.querySelector("strong").textContent = `${quiz.reserveQuestions.length}/${target}`;
+  const detail = panel.querySelector("small");
+  detail.textContent = quiz.prefetching ? `正在生成 ${quiz.prefetching} 道` : quiz.prefetchError ? "后台补充失败" : "后台自动补充";
+  detail.title = quiz.prefetchError;
+}
+
+async function generateQuizQuestion() {
+  const quiz = state.quiz;
+  quiz.result = null;
+  quiz.selectedOptionId = "";
+  if (quiz.reserveQuestions.length) {
+    quiz.question = quiz.reserveQuestions.shift();
+    quiz.status = "ready";
+    quiz.prefetchError = "";
+    renderQuiz();
+    return;
+  }
+
+  quiz.status = "loading";
+  quiz.question = null;
+  renderQuiz();
+  try {
+    quiz.question = await requestQuizQuestion();
+    quiz.status = "ready";
+  } catch (error) {
+    quiz.status = "idle";
+    toast(error.message, "error");
+  }
+  if (state.view === "quiz") renderQuiz();
+}
+
+async function submitQuizAnswer() {
+  const quiz = state.quiz;
+  if (!quiz.question || !quiz.selectedOptionId || quiz.result) return;
+  const button = document.querySelector("#submit-quiz");
+  if (button) { button.disabled = true; button.textContent = "判分中…"; }
+  try {
+    const { result } = await api("/api/quiz/answer", {
+      method: "POST",
+      body: JSON.stringify({ questionId: quiz.question.id, optionId: quiz.selectedOptionId }),
+    });
+    quiz.result = result;
+    quiz.answered += 1;
+    quiz.correct += result.correct ? 1 : 0;
+    state.quizProgress.words[result.wordId] = result.progress;
+    state.learning.wordIds = [];
+    renderQuiz();
+  } catch (error) {
+    toast(error.message, "error");
+    if (button) { button.disabled = false; button.textContent = "提交答案"; }
+  }
 }
 
 function renderReserved(view) {
@@ -913,6 +1234,7 @@ async function init() {
     state.collections = payload.collections;
     state.options = payload.options;
     state.settings = payload.settings;
+    state.quizProgress = payload.quizProgress || { words: {} };
     updateAiIndicator();
     setView(state.view);
     registerWebMcpTools();

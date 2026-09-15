@@ -1,8 +1,641 @@
 {
   "schemaVersion": 1,
   "name": "个人收集",
-  "updatedAt": "2026-09-14T08:44:15.133Z",
+  "updatedAt": "2026-09-15T09:15:33.728Z",
   "words": [
+    {
+      "id": "eb0ba3a3-1920-439f-917c-be0e6affdd8a",
+      "term": "塩",
+      "reading": "しお",
+      "partOfSpeech": {
+        "category": "名词",
+        "detail": "普通名词（亦作构词成分，音读「えん」多用于「食塩・塩分」等复合词）",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [
+        "盐，食盐（主要成分为氯化钠的调味料）",
+        "盐分，咸味",
+        "（引申，见「塩対応」等）冷淡、敷衍的态度或对待方式"
+      ],
+      "jlpt": "N4",
+      "tags": [
+        "日常",
+        "食物",
+        "常用汉字",
+        "和语",
+        "训读"
+      ],
+      "conjugations": [],
+      "examples": [
+        {
+          "japanese": "この<ruby>料理<rt>りょうり</rt></ruby>は<ruby>塩<rt>しお</rt></ruby>が<ruby>足<rt>た</rt></ruby>りない。",
+          "chinese": "这道菜盐不够。"
+        },
+        {
+          "japanese": "<ruby>塩<rt>しお</rt></ruby>を<ruby>少<rt>すこ</rt></ruby>し<ruby>加<rt<rt>くわ</rt></ruby>えて、<ruby>味<rt>あじ</rt></ruby>を<ruby>整<rt>ととの</rt></ruby>える。",
+          "chinese": "稍微加点盐，把味道调好。"
+        }
+      ],
+      "notes": "读作「しお」时为和语训读，指日常调味用的盐；在「食塩」「塩分」「塩酸」等复合词中读作音读「えん」。与同音的「潮（しお）」意思不同，写作「塩」时只表示盐。另需注意「敵に塩を送る」（给敌人送盐，指对困境中的对手伸出援手）是固定惯用表达，整体含义不能仅凭字面理解。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-15T09:02:14.650Z",
+      "updatedAt": "2026-09-15T09:15:33.728Z"
+    },
+    {
+      "id": "6d1d1fce-591f-43f1-8ab4-edbf13501fd8",
+      "term": "漢字",
+      "reading": "かんじ",
+      "partOfSpeech": {
+        "category": "名词",
+        "detail": "普通名词；指汉字，也指日语中使用的表意文字体系",
+        "conjugationClass": "不适用（名词不活用）",
+        "transitivity": "不适用（名词无及物性）"
+      },
+      "meanings": [
+        "汉字；日语中使用的表意文字，源自中国汉字。",
+        "汉字这一文字体系。"
+      ],
+      "jlpt": "N5",
+      "tags": [
+        "N5",
+        "名词",
+        "文字",
+        "学习",
+        "基础词汇"
+      ],
+      "conjugations": [
+        {
+          "name": "无活用",
+          "form": "名词无活用形",
+          "example": "「<ruby>漢字<rt>かんじ</rt></ruby>」は<ruby>名詞<rt>めいし</rt></ruby>なので、<ruby>活用<rt>かつよう</rt></ruby>しません。",
+          "exampleChinese": "“漢字”是名词，因此没有活用形。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>私<rt>わたし</rt></ruby>は<ruby>毎日<rt>まいにち</rt></ruby><ruby>漢字<rt>かんじ</rt></ruby>を<ruby>勉強<rt>べんきょう</rt></ruby>しています。",
+          "chinese": "我每天都在学习汉字。"
+        },
+        {
+          "japanese": "この<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>読<rt>よ</rt></ruby>み<ruby>方<rt>かた</rt></ruby>を<ruby>教<rt>おし</rt></ruby>えてください。",
+          "chinese": "请告诉我这个汉字的读法。"
+        }
+      ],
+      "notes": "「漢字」是名词，指日语中使用的汉字，通常有音读和训读之分；无活用形。JLPT 相当难度为 N5。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-15T07:25:38.477Z",
+      "updatedAt": "2026-09-15T09:15:21.596Z"
+    },
+    {
+      "id": "57649ef7-2593-41ae-ab65-69391e09b066",
+      "term": "盛り上げる",
+      "reading": "もりあげる",
+      "partOfSpeech": {
+        "category": "动词",
+        "detail": "复合动词，一段活用（下一段），他动词",
+        "conjugationClass": "一段（下一段）",
+        "transitivity": "他动词"
+      },
+      "meanings": [
+        "使气氛热烈；活跃气氛；把……搞得热闹",
+        "堆高；盛得高高的"
+      ],
+      "jlpt": "N2",
+      "tags": [
+        "复合动词",
+        "他动词",
+        "一段动词",
+        "常用",
+        "气氛"
+      ],
+      "conjugations": [
+        {
+          "name": "辞書形",
+          "form": "盛り上げる",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>場<rt>ば</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げるのが<ruby>上手<rt>じょうず</rt></ruby>だ。",
+          "exampleChinese": "他很擅长活跃气氛。"
+        },
+        {
+          "name": "ます形",
+          "form": "盛り上げます",
+          "example": "<ruby>司会者<rt>しかいしゃ</rt></ruby>が<ruby>会場<rt>かいじょう</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げます。",
+          "exampleChinese": "主持人使会场气氛热烈起来。"
+        },
+        {
+          "name": "て形",
+          "form": "盛り上げて",
+          "example": "<ruby>彼女<rt>かのじょ</rt></ruby>の<ruby>話<rt>はなし</rt></ruby>が<ruby>場<rt>ば</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げて、<ruby>笑<rt>わら</rt></ruby>いが<ruby>起<rt>お</rt></ruby>きた。",
+          "exampleChinese": "她的话使气氛热烈起来，笑声四起。"
+        },
+        {
+          "name": "た形",
+          "form": "盛り上げた",
+          "example": "<ruby>先生<rt>せんせい</rt></ruby>が<ruby>冗談<rt>じょうだん</rt></ruby>で<ruby>教室<rt>きょうしつ</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げた。",
+          "exampleChinese": "老师用玩笑活跃了教室气氛。"
+        },
+        {
+          "name": "ない形",
+          "form": "盛り上げない",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>自分<rt>じぶん</rt></ruby>からは<ruby>場<rt>ば</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げない。",
+          "exampleChinese": "他自己不会主动活跃气氛。"
+        },
+        {
+          "name": "なかった形",
+          "form": "盛り上げなかった",
+          "example": "<ruby>昨日<rt>きのう</rt></ruby>のパーティーでは、<ruby>誰<rt>だれ</rt></ruby>も<ruby>場<rt>ば</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げなかった。",
+          "exampleChinese": "昨天的聚会上，谁都没有活跃气氛。"
+        },
+        {
+          "name": "意向形",
+          "form": "盛り上げよう",
+          "example": "みんなで<ruby>宴<rt>うたげ</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げよう。",
+          "exampleChinese": "大家一起把宴会气氛搞起来吧。"
+        },
+        {
+          "name": "命令形",
+          "form": "盛り上げろ",
+          "example": "もっと<ruby>場<rt>ば</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げろ。",
+          "exampleChinese": "再把气氛搞热一点！"
+        },
+        {
+          "name": "可能形",
+          "form": "盛り上げられる",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>なら<ruby>一人<rt>ひとり</rt></ruby>で<ruby>会場<rt>かいじょう</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げられる。",
+          "exampleChinese": "若是他，一个人就能让会场气氛热烈起来。"
+        },
+        {
+          "name": "被动形",
+          "form": "盛り上げられる",
+          "example": "<ruby>会場<rt>かいじょう</rt></ruby>は<ruby>司会者<rt>しかいしゃ</rt></ruby>によって<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げられた。",
+          "exampleChinese": "会场被主持人搞得气氛热烈。"
+        },
+        {
+          "name": "使役形",
+          "form": "盛り上げさせる",
+          "example": "<ruby>部長<rt>ぶちょう</rt></ruby>は<ruby>部下<rt>ぶか</rt></ruby>に<ruby>場<rt>ば</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げさせた。",
+          "exampleChinese": "部长让下属活跃气氛。"
+        },
+        {
+          "name": "使役被动形",
+          "form": "盛り上げさせられる",
+          "example": "<ruby>新人<rt>しんじん</rt></ruby>は<ruby>無理<rt>むり</rt></ruby>やり<ruby>場<rt>ば</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げさせられた。",
+          "exampleChinese": "新人被迫硬着头皮活跃气氛。"
+        },
+        {
+          "name": "条件形（ば）",
+          "form": "盛り上げれば",
+          "example": "<ruby>君<rt>きみ</rt></ruby>が<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げれば、<ruby>会<rt>かい</rt></ruby>は<ruby>成功<rt>せいこう</rt></ruby>する。",
+          "exampleChinese": "如果你能活跃气氛，聚会就会成功。"
+        },
+        {
+          "name": "条件形（たら）",
+          "form": "盛り上げたら",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>が<ruby>場<rt>ば</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げたら、みんなも<ruby>笑顔<rt>えがお</rt></ruby>になった。",
+          "exampleChinese": "他一活跃气氛，大家也露出了笑容。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>会<rt>かい</rt></ruby>を<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げるのが<ruby>得意<rt>とくい</rt></ruby>だ。",
+          "chinese": "他擅长活跃聚会气氛。"
+        },
+        {
+          "japanese": "<ruby>司会者<rt>しかいしゃ</rt></ruby>の<ruby>一言<rt>ひとこと</rt></ruby>が<ruby>会場<rt>かいじょう</rt></ruby>を<ruby>大<rt>おお</rt></ruby>いに<ruby>盛<rt>も</rt></ruby>り<ruby>上<rt>あ</rt></ruby>げた。",
+          "chinese": "主持人的一句话大大炒热了会场气氛。"
+        }
+      ],
+      "notes": "复合动词「盛り上げる」由「盛る」和「上げる」构成，一段活用（下一段），他动词。常与「雰囲気」「場」「ムード」等搭配，表示使气氛、情绪高涨。自动词形式是「盛り上がる」。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-15T07:18:41.694Z",
+      "updatedAt": "2026-09-15T07:22:09.862Z"
+    },
+    {
+      "id": "695f18ea-5d4b-4579-91f9-d5c4d76cde01",
+      "term": "会議",
+      "reading": "かいぎ",
+      "partOfSpeech": {
+        "category": "名词",
+        "detail": "名词；可构成サ変動詞「会議する」，表示开会",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [
+        "会议；开会；集会"
+      ],
+      "jlpt": "N4",
+      "tags": [
+        "名词",
+        "サ変動詞",
+        "常用词",
+        "商务",
+        "日常"
+      ],
+      "conjugations": [],
+      "examples": [
+        {
+          "japanese": "<ruby>明日<rt>あした</rt></ruby><ruby>会議<rt>かいぎ</rt></ruby>があります。",
+          "chinese": "明天有会议。"
+        },
+        {
+          "japanese": "<ruby>会議<rt>かいぎ</rt></ruby>の<ruby>資料<rt>しりょう</rt></ruby>を<ruby>準備<rt>じゅんび</rt></ruby>してください。",
+          "chinese": "请准备会议资料。"
+        }
+      ],
+      "notes": "「会議」是名词，指多人聚集讨论事项的会议。也可后接「する」构成サ変動詞「会議する」，表示开会，此时一般视为自动词。常见搭配：「会議を開く」「会議に出席する」「会議室」。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-15T06:20:52.844Z",
+      "updatedAt": "2026-09-15T06:21:16.262Z"
+    },
+    {
+      "id": "f5f7f603-bc28-46f0-85fe-bd1858e84fcf",
+      "term": "昨夜",
+      "reading": "さくや",
+      "partOfSpeech": {
+        "category": "名词",
+        "detail": "时间名词；表示昨天晚上/昨夜。读作「さくや」时较书面，读作「ゆうべ」时更口语。",
+        "conjugationClass": "无",
+        "transitivity": ""
+      },
+      "meanings": [
+        "昨夜，昨晚；昨天晚上"
+      ],
+      "jlpt": "N3",
+      "tags": [
+        "时间名词",
+        "日常",
+        "书面语",
+        "N3"
+      ],
+      "conjugations": [
+        {
+          "name": "",
+          "form": "昨夜",
+          "example": "<ruby>昨夜</ruby>の<ruby>出来事</ruby>を<ruby>今</ruby>でも<ruby>覚</ruby>えている。",
+          "exampleChinese": "我至今还记得昨晚发生的事。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>昨夜</ruby>は<ruby>雨</ruby>が<ruby>降</ruby>りました。",
+          "chinese": "昨晚下雨了。"
+        },
+        {
+          "japanese": "<ruby>昨夜</ruby>、<ruby>遅</ruby>くまで<ruby>友達</ruby>と<ruby>話</ruby>していたので、<ruby>今朝</ruby>は<ruby>寝坊</ruby>してしまった。",
+          "chinese": "昨晚跟朋友聊到很晚，今天早上睡过头了。"
+        }
+      ],
+      "notes": "「昨夜」通常读作「さくや」，较书面、正式；口语中更常用「ゆうべ」。作时间名词，可直接修饰名词，如「昨夜の会議」。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-15T06:11:51.958Z",
+      "updatedAt": "2026-09-15T06:57:13.132Z"
+    },
+    {
+      "id": "48cd4bfd-1102-4448-b11f-d41d4288ba5b",
+      "term": "後ろ",
+      "reading": "うしろ",
+      "partOfSpeech": {
+        "category": "名词",
+        "detail": "普通名词；表示空间、位置或顺序上的后方，也可指背后；无活用。",
+        "conjugationClass": "无（名词无活用）",
+        "transitivity": "他动词"
+      },
+      "meanings": [
+        "后面，后方（与「前」相对）",
+        "背面，背后",
+        "（顺序或位置的）后边，后面"
+      ],
+      "jlpt": "N5",
+      "tags": [
+        "名词",
+        "位置",
+        "方向",
+        "空间",
+        "基础词汇",
+        "N5"
+      ],
+      "conjugations": [
+        {
+          "name": "",
+          "form": "後ろ",
+          "example": "<ruby>後<rt>うし</rt></ruby>ろは<ruby>名詞<rt>めいし</rt></ruby>なので、<ruby>活用<rt>かつよう</rt></ruby>しません。",
+          "exampleChinese": "「後ろ」是名词，所以没有活用。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>駅<rt>えき</rt></ruby>の<ruby>後<rt>うし</rt></ruby>ろに<ruby>大<rt>おお</rt></ruby>きな<ruby>公園<rt>こうえん</rt></ruby>があります。",
+          "chinese": "车站后面有一个大公园。"
+        },
+        {
+          "japanese": "<ruby>後<rt>うし</rt></ruby>ろから<ruby>声<rt>こえ</rt></ruby>をかけられて、<ruby>振<rt>ふ</rt></ruby>り<ruby>返<rt>かえ</rt></ruby>った。",
+          "chinese": "从背后被人叫住，我回过头。"
+        }
+      ],
+      "notes": "「後ろ」是表示位置或方向的名词，常与「前」相对。常见搭配有「後ろに」「後ろから」「後ろを振り返る」。注意与「後（あと／ご）」的读音和用法区分。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-15T05:25:20.700Z",
+      "updatedAt": "2026-09-15T05:38:25.839Z"
+    },
+    {
+      "id": "15df8bab-3c46-4404-ba2e-ffed7e864d2f",
+      "term": "記憶",
+      "reading": "きおく",
+      "partOfSpeech": {
+        "category": "名词",
+        "detail": "名詞；サ変動詞「記憶する」としても使用される",
+        "conjugationClass": "サ変",
+        "transitivity": "他动词"
+      },
+      "meanings": [
+        "记忆，记性；回忆",
+        "记住，记得（用「記憶する」）",
+        "（计算机）存储，内存"
+      ],
+      "jlpt": "N3",
+      "tags": [
+        "名词",
+        "サ变动词",
+        "N3",
+        "抽象",
+        "心理",
+        "计算机",
+        "常用"
+      ],
+      "conjugations": [
+        {
+          "name": "辞書形",
+          "form": "記憶する",
+          "example": "<ruby>大事<rt>だいじ</rt></ruby>なことを<ruby>記憶<rt>きおく</rt></ruby>する。",
+          "exampleChinese": "记住重要的事情。"
+        },
+        {
+          "name": "ます形",
+          "form": "記憶します",
+          "example": "<ruby>毎日<rt>まいにち</rt></ruby>、<ruby>新<rt>あたら</rt></ruby>しい<ruby>単語<rt>たんご</rt></ruby>を<ruby>記憶<rt>きおく</rt></ruby>します。",
+          "exampleChinese": "每天记新单词。"
+        },
+        {
+          "name": "て形",
+          "form": "記憶して",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>私<rt>わたし</rt></ruby>の<ruby>顔<rt>かお</rt></ruby>を<ruby>記憶<rt>きおく</rt></ruby>している。",
+          "exampleChinese": "他记得我的脸。"
+        },
+        {
+          "name": "た形",
+          "form": "記憶した",
+          "example": "<ruby>昨日<rt>きのう</rt></ruby><ruby>習<rt>なら</rt></ruby>った<ruby>文法<rt>ぶんぽう</rt></ruby>を<ruby>記憶<rt>きおく</rt></ruby>した。",
+          "exampleChinese": "记住了昨天学的语法。"
+        },
+        {
+          "name": "ない形",
+          "form": "記憶しない",
+          "example": "<ruby>私<rt>わたし</rt></ruby>は<ruby>嫌<rt>いや</rt></ruby>な<ruby>出来事<rt>できごと</rt></ruby>を<ruby>記憶<rt>きおく</rt></ruby>しない。",
+          "exampleChinese": "我不记住讨厌的事情。"
+        },
+        {
+          "name": "なかった形",
+          "form": "記憶しなかった",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>はその<ruby>約束<rt>やくそく</rt></ruby>を<ruby>記憶<rt>きおく</rt></ruby>しなかった。",
+          "exampleChinese": "他没有记住那个约定。"
+        },
+        {
+          "name": "意向形",
+          "form": "記憶しよう",
+          "example": "<ruby>大切<rt>たいせつ</rt></ruby>な<ruby>言葉<rt>ことば</rt></ruby>を<ruby>記憶<rt>きおく</rt></ruby>しよう。",
+          "exampleChinese": "记住重要的话吧。"
+        },
+        {
+          "name": "命令形",
+          "form": "記憶しろ",
+          "example": "この<ruby>公式<rt>こうしき</rt></ruby>を<ruby>今<rt>いま</rt></ruby>すぐ<ruby>記憶<rt>きおく</rt></ruby>しろ。",
+          "exampleChinese": "现在立刻记住这个公式。"
+        },
+        {
+          "name": "可能形",
+          "form": "記憶できる",
+          "example": "<ruby>私<rt>わたし</rt></ruby>は<ruby>名前<rt>なまえ</rt></ruby>をすぐ<ruby>記憶<rt>きおく</rt></ruby>できる。",
+          "exampleChinese": "我能马上记住名字。"
+        },
+        {
+          "name": "被动形",
+          "form": "記憶される",
+          "example": "その<ruby>出来事<rt>できごと</rt></ruby>は<ruby>歴史<rt>れきし</rt></ruby>に<ruby>記憶<rt>きおく</rt></ruby>されている。",
+          "exampleChinese": "那件事被历史铭记。"
+        },
+        {
+          "name": "使役形",
+          "form": "記憶させる",
+          "example": "<ruby>先生<rt>せんせい</rt></ruby>は<ruby>生徒<rt>せいと</rt></ruby>に<ruby>単語<rt>たんご</rt></ruby>を<ruby>記憶<rt>きおく</rt></ruby>させる。",
+          "exampleChinese": "老师让学生记单词。"
+        },
+        {
+          "name": "使役被动形",
+          "form": "記憶させられる",
+          "example": "<ruby>私<rt>わたし</rt></ruby>は<ruby>母<rt>はは</rt></ruby>に<ruby>薬<rt>くすり</rt></ruby>の<ruby>名前<rt>なまえ</rt></ruby>を<ruby>記憶<rt>きおく</rt></ruby>させられた。",
+          "exampleChinese": "我被妈妈逼着记住了药名。"
+        },
+        {
+          "name": "条件形（ば）",
+          "form": "記憶すれば",
+          "example": "<ruby>毎日<rt>まいにち</rt></ruby><ruby>復習<rt>ふくしゅう</rt></ruby>して<ruby>記憶<rt>きおく</rt></ruby>すれば、<ruby>忘<rt>わす</rt></ruby>れにくい。",
+          "exampleChinese": "如果每天复习并记忆，就不容易忘记。"
+        },
+        {
+          "name": "条件形（たら）",
+          "form": "記憶したら",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>が<ruby>名前<rt>なまえ</rt></ruby>を<ruby>記憶<rt>きおく</rt></ruby>したら、<ruby>教<rt>おし</rt></ruby>えてください。",
+          "exampleChinese": "如果他记住了名字，请告诉我。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>彼<rt>かれ</rt></ruby>の<ruby>名前<rt>なまえ</rt></ruby>を<ruby>記憶<rt>きおく</rt></ruby>している。",
+          "chinese": "我记得他的名字。"
+        },
+        {
+          "japanese": "<ruby>子供<rt>こども</rt></ruby>の<ruby>頃<rt>ころ</rt></ruby>の<ruby>記憶<rt>きおく</rt></ruby>はもう<ruby>曖昧<rt>あいまい</rt></ruby>だ。",
+          "chinese": "儿时的记忆已经模糊了。"
+        }
+      ],
+      "notes": "「記憶」既可作名词，也可作サ变动词「記憶する」。在计算机语境中也可指内存、存储。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-15T02:02:32.355Z",
+      "updatedAt": "2026-09-15T02:03:37.244Z"
+    },
+    {
+      "id": "aa4e1b2c-0f89-43b1-8618-5390371a5d7a",
+      "term": "床",
+      "reading": "ゆか／とこ",
+      "partOfSpeech": {
+        "category": "名词",
+        "detail": "名词；多音词：读「ゆか」指地板，读「とこ」指床铺、寝床，也见于复合词。",
+        "conjugationClass": "无",
+        "transitivity": ""
+      },
+      "meanings": [
+        "（读「ゆか」）地板，地面；室内地面铺装的部分。",
+        "（读「とこ」）床，床铺，被褥；睡觉的地方。",
+        "（读「とこ」）苗床，温床；培育植物或细菌等的基床，也比喻事物滋生的基础。"
+      ],
+      "jlpt": "N3",
+      "tags": [
+        "常用汉字",
+        "名词",
+        "多音词",
+        "住宅",
+        "寝具"
+      ],
+      "conjugations": [],
+      "examples": [
+        {
+          "japanese": "<ruby>床<rt>ゆか</rt></ruby>に<ruby>座<rt>すわ</rt></ruby>って、<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>みました。",
+          "chinese": "我坐在地板上读了书。"
+        },
+        {
+          "japanese": "<ruby>昨夜<rt>さくや</rt></ruby>は<ruby>早<rt>はや</rt></ruby>く<ruby>床<rt>とこ</rt></ruby>に<ruby>就<rt>つ</rt></ruby>きました。",
+          "chinese": "昨晚早早地上床睡了。"
+        }
+      ],
+      "notes": "「床」是常用汉字，多音多义。单独作名词时，读「ゆか」多指室内地板；读「とこ」多指床铺、寝床，也用于「床屋」「苗床」等复合词。需根据语境判断读音。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-15T01:30:52.314Z",
+      "updatedAt": "2026-09-15T01:32:58.251Z"
+    },
+    {
+      "id": "528efe11-604a-43a3-80c7-7f1128055858",
+      "term": "要求",
+      "reading": "ようきゅう",
+      "partOfSpeech": {
+        "category": "名词",
+        "detail": "名词；也可作サ行变格活用他动词（要求する），表示要求、请求、需求。",
+        "conjugationClass": "サ行変格活用（する）",
+        "transitivity": "他动词"
+      },
+      "meanings": [
+        "要求，请求；索求",
+        "需要，需求"
+      ],
+      "jlpt": "N2",
+      "tags": [
+        "N2",
+        "名词",
+        "サ变",
+        "他动词",
+        "书面语",
+        "商务",
+        "报道"
+      ],
+      "conjugations": [
+        {
+          "name": "辞書形",
+          "form": "要求する",
+          "example": "<ruby>顧客<rt>こきゃく</rt></ruby>は<ruby>品質<rt>ひんしつ</rt></ruby>の<ruby>向上<rt>こうじょう</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>する。",
+          "exampleChinese": "顾客要求提高质量。"
+        },
+        {
+          "name": "ます形",
+          "form": "要求します",
+          "example": "<ruby>市民<rt>しみん</rt></ruby>は<ruby>市<rt>し</rt></ruby>に<ruby>説明<rt>せつめい</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>します。",
+          "exampleChinese": "市民要求市政府作出说明。"
+        },
+        {
+          "name": "て形",
+          "form": "要求して",
+          "example": "<ruby>組合<rt>くみあい</rt></ruby>は<ruby>賃上げ<rt>ちんあげ</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>して<ruby>交渉<rt>こうしょう</rt></ruby>を<ruby>続<rt>つづ</rt></ruby>けた。",
+          "exampleChinese": "工会要求加薪并继续谈判。"
+        },
+        {
+          "name": "た形",
+          "form": "要求した",
+          "example": "<ruby>上司<rt>じょうし</rt></ruby>は<ruby>部下<rt>ぶか</rt></ruby>に<ruby>報告書<rt>ほうこくしょ</rt></ruby>の<ruby>提出<rt>ていしゅつ</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>した。",
+          "exampleChinese": "上司要求部下提交报告书。"
+        },
+        {
+          "name": "ない形",
+          "form": "要求しない",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>無理<rt>むり</rt></ruby>な<ruby>要求<rt>ようきゅう</rt></ruby>をしない。",
+          "exampleChinese": "他不会提出无理要求。"
+        },
+        {
+          "name": "なかった形",
+          "form": "要求しなかった",
+          "example": "<ruby>昨日<rt>きのう</rt></ruby>は<ruby>誰<rt>だれ</rt></ruby>も<ruby>追加<rt>ついか</rt></ruby><ruby>説明<rt>せつめい</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>しなかった。",
+          "exampleChinese": "昨天没有人要求追加说明。"
+        },
+        {
+          "name": "意向形",
+          "form": "要求しよう",
+          "example": "<ruby>私<rt>わたし</rt></ruby>たちは<ruby>会社<rt>かいしゃ</rt></ruby>に<ruby>改善<rt>かいぜん</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>しよう。",
+          "exampleChinese": "我们向公司要求改善吧。"
+        },
+        {
+          "name": "命令形",
+          "form": "要求しろ",
+          "example": "すぐに<ruby>事実<rt>じじつ</rt></ruby><ruby>関係<rt>かんけい</rt></ruby>の<ruby>説明<rt>せつめい</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>しろ。",
+          "exampleChinese": "立刻要求说明事实关系。"
+        },
+        {
+          "name": "可能形",
+          "form": "要求できる",
+          "example": "この<ruby>制度<rt>せいど</rt></ruby>では<ruby>誰<rt>だれ</rt></ruby>でも<ruby>情報<rt>じょうほう</rt></ruby><ruby>公開<rt>こうかい</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>できる。",
+          "exampleChinese": "在这个制度下，任何人都可以要求信息公开。"
+        },
+        {
+          "name": "被动形",
+          "form": "要求される",
+          "example": "<ruby>政府<rt>せいふ</rt></ruby>は<ruby>国民<rt>こくみん</rt></ruby>から<ruby>説明<rt>せつめい</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>された。",
+          "exampleChinese": "政府被国民要求作出说明。"
+        },
+        {
+          "name": "使役形",
+          "form": "要求させる",
+          "example": "<ruby>部長<rt>ぶちょう</rt></ruby>は<ruby>部下<rt>ぶか</rt></ruby>に<ruby>顧客<rt>こきゃく</rt></ruby>へ<ruby>値引き<rt>ねびき</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>させた。",
+          "exampleChinese": "部长让部下向客户要求降价。"
+        },
+        {
+          "name": "使役被动形",
+          "form": "要求させられる",
+          "example": "<ruby>私<rt>わたし</rt></ruby>は<ruby>上司<rt>じょうし</rt></ruby>に<ruby>顧客<rt>こきゃく</rt></ruby>へ<ruby>無理<rt>むり</rt></ruby>な<ruby>値下げ<rt>ねさげ</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>させられた。",
+          "exampleChinese": "我被上司逼着向客户要求不合理降价。"
+        },
+        {
+          "name": "条件形（ば）",
+          "form": "要求すれば",
+          "example": "こちらから<ruby>要求<rt>ようきゅう</rt></ruby>すれば、<ruby>相手<rt>あいて</rt></ruby>も<ruby>応<rt>おう</rt></ruby>じるだろう。",
+          "exampleChinese": "如果我们这边提出要求，对方大概也会答应吧。"
+        },
+        {
+          "name": "条件形（たら）",
+          "form": "要求したら",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>に<ruby>強<rt>つよ</rt></ruby>く<ruby>要求<rt>ようきゅう</rt></ruby>したら、ようやく<ruby>動<rt>うご</rt></ruby>いてくれた。",
+          "exampleChinese": "强烈要求他之后，他终于行动了。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>会社<rt>かいしゃ</rt></ruby>は<ruby>取引先<rt>とりひきさき</rt></ruby>から<ruby>納期<rt>のうき</rt></ruby>の<ruby>前倒し<rt>まえだおし</rt></ruby>を<ruby>要求<rt>ようきゅう</rt></ruby>された。",
+          "chinese": "公司被客户要求提前交货。"
+        },
+        {
+          "japanese": "この<ruby>仕事<rt>しごと</rt></ruby>は<ruby>高<rt>たか</rt></ruby>い<ruby>集中力<rt>しゅうちゅうりょく</rt></ruby>と<ruby>正確<rt>せいかく</rt></ruby>さが<ruby>要求<rt>ようきゅう</rt></ruby>される。",
+          "chinese": "这项工作要求高度的专注和准确。"
+        }
+      ],
+      "notes": "「要求」可作名词，也可作サ行变格活用他动词（要求する）。作动词时常用「AにBを要求する」的形式，语体偏正式，常见于商务、新闻和公文。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-15T01:16:51.562Z",
+      "updatedAt": "2026-09-15T01:27:11.269Z"
+    },
     {
       "id": "6067e668-9645-45fc-b1f4-5b8b19cb556b",
       "term": "にくい",
@@ -21211,125 +21844,127 @@
     },
     {
       "id": "617e8d62-d8be-4bef-b31b-334899ceb2ae",
-      "term": "含まれる",
-      "reading": "ふくまれる",
+      "term": "含む",
+      "reading": "ふくむ",
       "partOfSpeech": {
         "category": "动词",
-        "detail": "五段活用他动词「含む」的被动形，实际多作自动词使用；按一段动词活用。",
-        "conjugationClass": "一段",
-        "transitivity": "自动词"
+        "detail": "五段动词，他动词，表示包含、含有、把东西含在嘴里等",
+        "conjugationClass": "五段",
+        "transitivity": "他动词"
       },
       "meanings": [
-        "被包含，包含在内",
-        "含有，包括"
+        "包含，含有",
+        "（在口中）含，噙",
+        "带有，含有（某种成分、意义、感情等）"
       ],
       "jlpt": "N3",
       "tags": [
-        "被动形",
-        "自动词",
-        "一段动词",
-        "常用"
+        "N3",
+        "五段动词",
+        "他动词",
+        "常用词",
+        "及物动词"
       ],
       "conjugations": [
         {
           "name": "辞書形",
-          "form": "含まれる",
-          "example": "<ruby>価格<rt>かかく</rt></ruby>に<ruby>送料<rt>そうりょう</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれる。",
-          "exampleChinese": "价格中包含运费。"
+          "form": "含む",
+          "example": "この<ruby>飲<rt>の</rt></ruby>み<ruby>物<rt>もの</rt></ruby>は<ruby>糖分<rt>とうぶん</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>む。",
+          "exampleChinese": "这种饮料含糖分。"
         },
         {
           "name": "ます形",
-          "form": "含まれます",
-          "example": "<ruby>価格<rt>かかく</rt></ruby>に<ruby>送料<rt>そうりょう</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれます。",
-          "exampleChinese": "价格中包含运费。"
+          "form": "含みます",
+          "example": "この<ruby>食品<rt>しょくひん</rt></ruby>は<ruby>添加物<rt>てんかぶつ</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>みます。",
+          "exampleChinese": "这种食品含有添加剂。"
         },
         {
           "name": "て形",
-          "form": "含まれて",
-          "example": "<ruby>料金<rt>りょうきん</rt></ruby>に<ruby>税<rt>ぜい</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれて、<ruby>表示<rt>ひょうじ</rt></ruby>されています。",
-          "exampleChinese": "费用中含税并已标示。"
+          "form": "含んで",
+          "example": "この<ruby>文<rt>ぶん</rt></ruby>は<ruby>多<rt>おお</rt></ruby>くの<ruby>意味<rt>いみ</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>んでいます。",
+          "exampleChinese": "这句话包含许多意思。"
         },
         {
           "name": "た形",
-          "form": "含まれた",
-          "example": "<ruby>今回<rt>こんかい</rt></ruby>の<ruby>請求<rt>せいきゅう</rt></ruby>には<ruby>手数料<rt>てすうりょう</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれた。",
-          "exampleChinese": "本次账单中包含了手续费。"
+          "form": "含んだ",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>の<ruby>説明<rt>せつめい</rt></ruby>は<ruby>重要<rt>じゅうよう</rt></ruby>な<ruby>点<rt>てん</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>んだ。",
+          "exampleChinese": "他的说明包含了重要点。"
         },
         {
           "name": "ない形",
-          "form": "含まれない",
-          "example": "このパックには<ruby>税<rt>ぜい</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれない。",
-          "exampleChinese": "这个套餐不含税。"
+          "form": "含まない",
+          "example": "この<ruby>飲<rt>の</rt></ruby>み<ruby>物<rt>もの</rt></ruby>は<ruby>糖分<rt>とうぶん</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>まない。",
+          "exampleChinese": "这种饮料不含糖分。"
         },
         {
           "name": "なかった形",
-          "form": "含まれなかった",
-          "example": "<ruby>前回<rt>ぜんかい</rt></ruby>の<ruby>見積<rt>みつもり</rt></ruby>には<ruby>送料<rt>そうりょう</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれなかった。",
-          "exampleChinese": "上次报价中未包含运费。"
+          "form": "含まなかった",
+          "example": "<ruby>昨日<rt>きのう</rt></ruby>の<ruby>資料<rt>しりょう</rt></ruby>は<ruby>大切<rt>たいせつ</rt></ruby>な<ruby>情報<rt>じょうほう</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>まなかった。",
+          "exampleChinese": "昨天的资料没有包含重要信息。"
         },
         {
           "name": "意向形",
-          "form": "含まれよう",
-          "example": "<ruby>送料<rt>そうりょう</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれようと<ruby>含<rt>ふく</rt></ruby>まれまいと、<ruby>価格<rt>かかく</rt></ruby>は<ruby>同<rt>おな</rt></ruby>じだ。",
-          "exampleChinese": "不管是否包含运费，价格都一样。"
+          "form": "含もう",
+          "example": "<ruby>今回<rt>こんかい</rt></ruby>の<ruby>計画<rt>けいかく</rt></ruby>には<ruby>交通費<rt>こうつうひ</rt></ruby>も<ruby>含<rt>ふく</rt></ruby>もう。",
+          "exampleChinese": "这次计划也把交通费包含进去吧。"
         },
         {
           "name": "命令形",
-          "form": "含まれろ",
-          "example": "「<ruby>含<rt>ふく</rt></ruby>まれろ」という<ruby>命令<rt>めいれい</rt></ruby>の<ruby>形<rt>かたち</rt></ruby>は、ふつう<ruby>使<rt>つか</rt></ruby>われない。",
-          "exampleChinese": "“含まれろ”这种命令形通常不使用。"
+          "form": "含め",
+          "example": "<ruby>口<rt>くち</rt></ruby>に<ruby>薬<rt>くすり</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>め。",
+          "exampleChinese": "把药含在嘴里。"
         },
         {
           "name": "可能形",
-          "form": "含まれられる（含まれ得る）",
-          "example": "この<ruby>資料<rt>しりょう</rt></ruby>には<ruby>重要<rt>じゅうよう</rt></ruby>な<ruby>情報<rt>じょうほう</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれ<ruby>得<rt>う</rt></ruby>る。",
-          "exampleChinese": "这份资料中可能包含重要信息。"
+          "form": "含める",
+          "example": "この<ruby>値段<rt>ねだん</rt></ruby>には<ruby>税<rt>ぜい</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>める。",
+          "exampleChinese": "这个价格可以包含税。"
         },
         {
           "name": "被动形",
-          "form": "含まれられる",
-          "example": "<ruby>含<rt>ふく</rt></ruby>まれられるという<ruby>形<rt>かたち</rt></ruby>は、<ruby>受身<rt>うけみ</rt></ruby>にさらに<ruby>受身<rt>うけみ</rt></ruby>の<ruby>意味<rt>いみ</rt></ruby>を<ruby>加<rt>くわ</rt></ruby>える。",
-          "exampleChinese": "“含まれられる”这个形式是在被动之上再加被动的意思。"
+          "form": "含まれる",
+          "example": "<ruby>料金<rt>りょうきん</rt></ruby>には<ruby>税金<rt>ぜいきん</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれている。",
+          "exampleChinese": "费用中包含了税金。"
         },
         {
           "name": "使役形",
-          "form": "含まれさせる",
-          "example": "<ruby>設定<rt>せってい</rt></ruby>で<ruby>送料<rt>そうりょう</rt></ruby>を<ruby>価格<rt>かかく</rt></ruby>に<ruby>含<rt>ふく</rt></ruby>まれさせた。",
-          "exampleChinese": "通过设置让运费包含在价格中。"
+          "form": "含ませる",
+          "example": "<ruby>医者<rt>いしゃ</rt></ruby>は<ruby>患者<rt>かんじゃ</rt></ruby>に<ruby>薬<rt>くすり</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>ませた。",
+          "exampleChinese": "医生让患者含了药。"
         },
         {
           "name": "使役被动形",
-          "form": "含まれさせられる",
-          "example": "<ruby>消費者<rt>しょうひしゃ</rt></ruby>は<ruby>送料<rt>そうりょう</rt></ruby>を<ruby>価格<rt>かかく</rt></ruby>に<ruby>含<rt>ふく</rt></ruby>まれさせられる。",
-          "exampleChinese": "消费者被迫让运费包含在价格中。"
+          "form": "含まされる",
+          "example": "<ruby>子供<rt>こども</rt></ruby>は<ruby>嫌<rt>いや</rt></ruby>がる<ruby>薬<rt>くすり</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>まされた。",
+          "exampleChinese": "孩子被迫含了讨厌的药。"
         },
         {
           "name": "条件形（ば）",
-          "form": "含まれれば",
-          "example": "<ruby>送料<rt>そうりょう</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれれば、<ruby>総額<rt>そうがく</rt></ruby>は<ruby>高<rt>たか</rt></ruby>くなる。",
-          "exampleChinese": "如果包含运费，总额就会变高。"
+          "form": "含めば",
+          "example": "<ruby>税<rt>ぜい</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>めば、<ruby>値段<rt>ねだん</rt></ruby>は<ruby>千<rt>せん</rt></ruby>円になる。",
+          "exampleChinese": "如果含税，价格就是一千日元。"
         },
         {
           "name": "条件形（たら）",
-          "form": "含まれたら",
-          "example": "<ruby>税<rt>ぜい</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれたら、<ruby>価格<rt>かかく</rt></ruby>を<ruby>再計算<rt>さいけいさん</rt></ruby>してください。",
-          "exampleChinese": "如果包含税费，请重新计算价格。"
+          "form": "含んだら",
+          "example": "<ruby>税<rt>ぜい</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>んだら、<ruby>全部<rt>ぜんぶ</rt></ruby>で<ruby>千<rt>せん</rt></ruby>円です。",
+          "exampleChinese": "如果含税的话，一共一千日元。"
         }
       ],
       "examples": [
         {
-          "japanese": "この<ruby>料金<rt>りょうきん</rt></ruby>には<ruby>税<rt>ぜい</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれている。",
-          "chinese": "这个费用中包含税费。"
+          "japanese": "この<ruby>飲<rt>の</rt></ruby>み<ruby>物<rt>もの</rt></ruby>は<ruby>砂糖<rt>さとう</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>んでいる。",
+          "chinese": "这种饮料含糖。"
         },
         {
-          "japanese": "<ruby>報告書<rt>ほうこくしょ</rt></ruby>には<ruby>重要<rt>じゅうよう</rt></ruby>な<ruby>情報<rt>じょうほう</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれている。",
-          "chinese": "报告中包含重要信息。"
+          "japanese": "<ruby>彼<rt>かれ</rt></ruby>の<ruby>言葉<rt>ことば</rt></ruby>には<ruby>深<rt>ふか</rt></ruby>い<ruby>意味<rt>いみ</rt></ruby>が<ruby>含<rt>ふく</rt></ruby>まれている。",
+          "chinese": "他的话里含有深意。"
         }
       ],
-      "notes": "「含まれる」是「含む」的被动形，通常以「〜に含まれる」「〜が含まれる」的形式表示某物被包含在整体中。其活用按一段动词变化；命令形、被动形等部分形式在实际会话中很少使用。",
+      "notes": "「含む」是五段他动词，常与被动形「含まれる」搭配表示“包含在内”。可能形「含める」与另一个他动词「含める（包括）”同形，需要根据语境分辨。表示“含在嘴里”时也常用「口に含む」。",
       "aiStatus": "complete",
       "createdAt": "2026-09-11T03:17:02.164Z",
-      "updatedAt": "2026-09-14T05:22:27.809Z",
+      "updatedAt": "2026-09-15T06:18:51.564Z",
       "studyStatus": "active"
     },
     {
@@ -38095,129 +38730,133 @@
     },
     {
       "id": "965a6855-89ae-4f30-a8cf-6814a1f8abd3",
-      "term": "限られる",
-      "reading": "かぎられる",
+      "term": "限る",
+      "reading": "かぎる",
       "partOfSpeech": {
         "category": "动词",
-        "detail": "五段活用动词「限る」的被动形，常以「～に限られる」「限られている」「限られた～」等形式表示被限定、限于、有限",
-        "conjugationClass": "五段",
+        "detail": "五段动词，他动词；表示限定、限于、未必、最好等",
+        "conjugationClass": "五段活用",
         "transitivity": "他动词"
       },
       "meanings": [
-        "被限制；受到限制",
-        "只限于；仅限于",
-        "有限；受到局限"
+        "限定；限制；把范围缩小到某处",
+        "限于；只限于（多用于「～に限る」「～に限って」等）",
+        "最好；莫过于（「～に限る」）",
+        "不一定；未必（「～とは限らない」）",
+        "截止；以……为限"
       ],
-      "jlpt": "N2",
+      "jlpt": "N3",
       "tags": [
-        "五段动词",
+        "动词",
+        "五段",
         "他动词",
-        "被动形",
+        "N3",
+        "常用",
         "限定",
-        "限制",
-        "书面语",
-        "N2"
+        "に限る",
+        "とは限らない",
+        "に限って"
       ],
       "conjugations": [
         {
           "name": "辞書形",
           "form": "限る",
-          "example": "<ruby>問題<rt>もんだい</rt></ruby>は<ruby>専門家<rt>せんもんか</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>る。",
-          "exampleChinese": "这个问题仅限于专家处理。"
+          "example": "この<ruby>店<rt>みせ</rt></ruby>は<ruby>小学生<rt>しょうがくせい</rt></ruby>だけに<ruby>入店<rt>にゅうてん</rt></ruby>を<ruby>限<rt>かぎ</rt></ruby>る。",
+          "exampleChinese": "这家店把进店者限定为小学生。"
         },
         {
           "name": "ます形",
           "form": "限ります",
-          "example": "<ruby>応募<rt>おうぼ</rt></ruby>は<ruby>一人<rt>ひとり</rt></ruby>につき<ruby>一回<rt>いっかい</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>ります。",
-          "exampleChinese": "报名每人仅限一次。"
+          "example": "<ruby>応募<rt>おうぼ</rt></ruby>は<ruby>一人<rt>ひとり</rt></ruby><ruby>一回<rt>いっかい</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>ります。",
+          "exampleChinese": "报名限于每人一次。"
         },
         {
           "name": "て形",
           "form": "限って",
-          "example": "<ruby>忙<rt>いそが</rt></ruby>しいときに<ruby>限<rt>かぎ</rt></ruby>って、<ruby>電話<rt>でんわ</rt></ruby>がかかってくる。",
-          "exampleChinese": "偏偏在忙的时候来电话。"
+          "example": "なぜ<ruby>今日<rt>きょう</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>って<ruby>雨<rt>あめ</rt></ruby>が<ruby>降<rt>ふ</rt></ruby>るのか。",
+          "exampleChinese": "为什么偏偏今天下雨呢。"
         },
         {
           "name": "た形",
           "form": "限った",
-          "example": "<ruby>参加<rt>さんか</rt></ruby>を<ruby>女性<rt>じょせい</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>った<ruby>会<rt>かい</rt></ruby>ではない。",
-          "exampleChinese": "并不是仅限女性参加的聚会。"
+          "example": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>参加者<rt>さんかしゃ</rt></ruby>を<ruby>関係者<rt>かんけいしゃ</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>った。",
+          "exampleChinese": "他把参加者限定为相关人员。"
         },
         {
           "name": "ない形",
           "form": "限らない",
-          "example": "<ruby>高<rt>たか</rt></ruby>いものが<ruby>必<rt>かなら</rt></ruby>ずしも<ruby>良<rt>よ</rt></ruby>いとは<ruby>限<rt>かぎ</rt></ruby>らない。",
-          "exampleChinese": "贵的东西未必好。"
+          "example": "お<ruby>金<rt>かね</rt></ruby>があれば<ruby>幸<rt>しあわ</rt></ruby>せとは<ruby>限<rt>かぎ</rt></ruby>らない。",
+          "exampleChinese": "有钱未必幸福。"
         },
         {
           "name": "なかった形",
           "form": "限らなかった",
-          "example": "<ruby>今回<rt>こんかい</rt></ruby>の<ruby>募集<rt>ぼしゅう</rt></ruby>は<ruby>経験者<rt>けいけんしゃ</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>らなかった。",
-          "exampleChinese": "这次招募并不限于有经验者。"
+          "example": "<ruby>当時<rt>とうじ</rt></ruby>は<ruby>入場者<rt>にゅうじょうしゃ</rt></ruby>を<ruby>大人<rt>おとな</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>らなかった。",
+          "exampleChinese": "当时没有把入场者限定为成年人。"
         },
         {
           "name": "意向形",
           "form": "限ろう",
-          "example": "<ruby>参加者<rt>さんかしゃ</rt></ruby>を<ruby>五人<rt>ごにん</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>ろう。",
-          "exampleChinese": "把参加者限定为五个人吧。"
+          "example": "<ruby>参加者<rt>さんかしゃ</rt></ruby>を<ruby>学生<rt>がくせい</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>ろう。",
+          "exampleChinese": "把参加者限定为学生吧。"
         },
         {
           "name": "命令形",
           "form": "限れ",
-          "example": "<ruby>入場<rt>にゅうじょう</rt></ruby>は<ruby>関係者<rt>かんけいしゃ</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>れ。",
-          "exampleChinese": "入场仅限相关人员。"
+          "example": "<ruby>人数<rt>にんずう</rt></ruby>を<ruby>十人<rt>じゅうにん</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>れ。",
+          "exampleChinese": "把人数限制到十人。"
         },
         {
           "name": "可能形",
           "form": "限れる",
-          "example": "この<ruby>機能<rt>きのう</rt></ruby>は<ruby>設定<rt>せってい</rt></ruby>で<ruby>利用<rt>りよう</rt></ruby><ruby>時間<rt>じかん</rt></ruby>を<ruby>限<rt>かぎ</rt></ruby>れる。",
-          "exampleChinese": "这个功能可以通过设置限制使用时间。"
+          "example": "<ruby>予算<rt>よさん</rt></ruby><ruby>内<rt>ない</rt></ruby>なら<ruby>人数<rt>にんずう</rt></ruby>を<ruby>限<rt>かぎ</rt></ruby>れる。",
+          "exampleChinese": "在预算内的话可以限制人数。"
         },
         {
           "name": "被动形",
           "form": "限られる",
-          "example": "<ruby>参加<rt>さんか</rt></ruby>できるのは<ruby>学生<rt>がくせい</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>られる。",
-          "exampleChinese": "能参加的仅限于学生。"
+          "example": "<ruby>参加<rt>さんか</rt></ruby>は<ruby>招待客<rt>しょうたいきゃく</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>られる。",
+          "exampleChinese": "参加者仅限于受邀客人。"
         },
         {
           "name": "使役形",
           "form": "限らせる",
-          "example": "<ruby>親<rt>おや</rt></ruby>は<ruby>子供<rt>こども</rt></ruby>の<ruby>遊<rt>あそ</rt></ruby>ぶ<ruby>時間<rt>じかん</rt></ruby>を<ruby>一時間<rt>いちじかん</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>らせた。",
-          "exampleChinese": "父母让孩子玩耍的时间限制在一小时。"
+          "example": "<ruby>親<rt>おや</rt></ruby>は<ruby>子供<rt>こども</rt></ruby>の<ruby>遊<rt>あそ</rt></ruby>び<ruby>時間<rt>じかん</rt></ruby>を<ruby>一時間<rt>いちじかん</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>らせた。",
+          "exampleChinese": "父母让孩子把玩耍时间限制在一小时。"
         },
         {
           "name": "使役被动形",
-          "form": "限らせられる",
-          "example": "<ruby>社員<rt>しゃいん</rt></ruby>は<ruby>残業<rt>ざんぎょう</rt></ruby>を<ruby>一時間<rt>いちじかん</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>らせられた。",
-          "exampleChinese": "员工被迫把加班限制在一小时。"
+          "form": "限らされる",
+          "example": "<ruby>参加者<rt>さんかしゃ</rt></ruby>は<ruby>持<rt>も</rt></ruby>ち<ruby>物<rt>もの</rt></ruby>を<ruby>一<rt>ひと</rt></ruby>つに<ruby>限<rt>かぎ</rt></ruby>らされた。",
+          "exampleChinese": "参加者被要求把携带物品限制为一件。"
         },
         {
           "name": "条件形（ば）",
           "form": "限れば",
-          "example": "<ruby>人数<rt>にんずう</rt></ruby>を<ruby>十人<rt>じゅうにん</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>れば、<ruby>準備<rt>じゅんび</rt></ruby>は<ruby>簡単<rt>かんたん</rt></ruby>だ。",
-          "exampleChinese": "如果把人数限定在十人，准备就简单。"
+          "example": "<ruby>時間<rt>じかん</rt></ruby>を<ruby>限<rt>かぎ</rt></ruby>ればもっと<ruby>集中<rt>しゅうちゅう</rt></ruby>できる。",
+          "exampleChinese": "如果限制时间，就能更加集中。"
         },
         {
           "name": "条件形（たら）",
           "form": "限ったら",
-          "example": "<ruby>参加者<rt>さんかしゃ</rt></ruby>を<ruby>女性<rt>じょせい</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>ったら、<ruby>男性<rt>だんせい</rt></ruby>は<ruby>参加<rt>さんか</rt></ruby>できない。",
-          "exampleChinese": "如果参加者仅限女性，男性就不能参加。"
+          "example": "<ruby>参加者<rt>さんかしゃ</rt></ruby>を<ruby>女性<rt>じょせい</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>ったらどうですか。",
+          "exampleChinese": "把参加者限定为女性怎么样？"
         }
       ],
       "examples": [
         {
-          "japanese": "<ruby>参加<rt>さんか</rt></ruby>できるのは<ruby>学生<rt>がくせい</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>られる。",
-          "chinese": "能参加的仅限于学生。"
+          "japanese": "この<ruby>仕事<rt>しごと</rt></ruby>は<ruby>経験者<rt>けいけんしゃ</rt></ruby>に<ruby>限<rt>かぎ</rt></ruby>って<ruby>募集<rt>ぼしゅう</rt></ruby>している。",
+          "chinese": "这份工作只限于有经验者应聘。"
         },
         {
-          "japanese": "<ruby>予算<rt>よさん</rt></ruby>が<ruby>限<rt>かぎ</rt></ruby>られているので、<ruby>新<rt>あたら</rt></ruby>しい<ruby>機材<rt>きざい</rt></ruby>は<ruby>買<rt>か</rt></ruby>えない。",
-          "chinese": "因为预算有限，买不了新设备。"
+          "japanese": "<ruby>高<rt>たか</rt></ruby>いからといって、<ruby>良<rt>よ</rt></ruby>い<ruby>品物<rt>しなもの</rt></ruby>とは<ruby>限<rt>かぎ</rt></ruby>らない。",
+          "chinese": "虽说贵，但未必就是好东西。"
         }
       ],
-      "notes": "「限られる」是五段他动词「限る」的被动形，常以「～に限られる」「限られている」「限られた～」等形式使用，表示被限定、只限于或有限。注意其可能形是「限れる」，不是「限られる」；「とは限らない」是另外的惯用表达，意为“未必”。",
+      "notes": "五段他动词。常用句型：～に限る（最好/限于）、～とは限らない（未必）、～に限って（偏偏/只限于）、～に限り（仅限）。",
       "aiStatus": "complete",
       "createdAt": "2026-09-11T03:17:02.166Z",
-      "updatedAt": "2026-09-14T05:56:02.881Z",
+      "updatedAt": "2026-09-15T06:18:43.873Z",
       "studyStatus": "active"
     },
     {
@@ -40602,7 +41241,7 @@
         "category": "形容词",
         "detail": "な形容词（形容動詞），表示离奇、异想天开、跳跃性大",
         "conjugationClass": "な形容词",
-        "transitivity": "不适用（形容词无及物性）"
+        "transitivity": ""
       },
       "meanings": [
         "离奇古怪；异想天开；出人意料",
@@ -40616,25 +41255,25 @@
       ],
       "conjugations": [
         {
-          "name": "现在肯定",
+          "name": "",
           "form": "突飛だ / 突飛です",
           "example": "その<ruby>計画<rt>けいかく</rt></ruby>は<ruby>突飛<rt>とっぴ</rt></ruby>だ。",
           "exampleChinese": "那个计划很离奇。"
         },
         {
-          "name": "现在否定",
+          "name": "",
           "form": "突飛ではない / 突飛じゃない",
           "example": "この<ruby>案<rt>あん</rt></ruby>は<ruby>突飛<rt>とっぴ</rt></ruby>ではない。",
           "exampleChinese": "这个方案并不离奇。"
         },
         {
-          "name": "过去肯定",
+          "name": "",
           "form": "突飛だった / 突飛でした",
           "example": "<ruby>当時<rt>とうじ</rt></ruby>、その<ruby>主張<rt>しゅちょう</rt></ruby>は<ruby>突飛<rt>とっぴ</rt></ruby>だった。",
           "exampleChinese": "当时，那个主张很离奇。"
         },
         {
-          "name": "过去否定",
+          "name": "",
           "form": "突飛ではなかった / 突飛じゃなかった",
           "example": "<ruby>彼<rt>かれ</rt></ruby>の<ruby>意見<rt>いけん</rt></ruby>は<ruby>突飛<rt>とっぴ</rt></ruby>ではなかった。",
           "exampleChinese": "他的意见并不离奇。"
@@ -40646,7 +41285,7 @@
           "exampleChinese": "她的主意很离奇，谁也没想到。"
         },
         {
-          "name": "条件形",
+          "name": "",
           "form": "突飛なら（ば）",
           "example": "その<ruby>案<rt>あん</rt></ruby>が<ruby>突飛<rt>とっぴ</rt></ruby>なら、<ruby>説明<rt>せつめい</rt></ruby>が<ruby>必要<rt>ひつよう</rt></ruby>だ。",
           "exampleChinese": "如果那个方案太离奇，就需要说明。"
@@ -40665,7 +41304,7 @@
       "notes": "「突飛」是な形容词，常以「突飛な＋名詞」的形式使用，多形容想法、计划、行动等离奇、出人意料或跳跃性大；也可作名词性用法。",
       "aiStatus": "complete",
       "createdAt": "2026-09-11T03:17:02.166Z",
-      "updatedAt": "2026-09-14T06:05:08.499Z",
+      "updatedAt": "2026-09-15T01:35:43.320Z",
       "studyStatus": "active"
     },
     {

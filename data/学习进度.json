@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-15T09:21:21.503Z",
+  "words": {
+    "1d3431d2-6f9d-4984-a655-1fb9d6471447": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T06:42:13.619Z"
+    },
+    "aab7a68d-43cf-46ec-bc47-4c471cb1e61d": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T06:52:01.915Z"
+    },
+    "a8309fdc-2349-4d29-90fa-d7d8048fd754": {
+      "level": 41,
+      "attempts": 1,
+      "correct": 0,
+      "streak": 0,
+      "lastReviewedAt": "2026-09-15T06:54:13.031Z"
+    },
+    "badf1626-9ebb-49aa-9125-66bbb0c2fbc6": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T07:01:56.438Z"
+    },
+    "8b664aed-1843-4b3a-9b6a-14eafabe16d3": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T07:03:52.725Z"
+    },
+    "b1f92fc8-995b-4b32-84c7-fffabf8d2b0f": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T07:06:19.708Z"
+    },
+    "ffcf98af-179f-4170-ae4b-fd20dbdf7af8": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T07:09:58.850Z"
+    },
+    "54eb5f43-771c-4cd1-beb1-92d29b0a42a4": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T07:13:46.124Z"
+    },
+    "72e15d09-6e06-45ec-a0ed-2a7f9056600f": {
+      "level": 41,
+      "attempts": 1,
+      "correct": 0,
+      "streak": 0,
+      "lastReviewedAt": "2026-09-15T07:15:35.421Z"
+    },
+    "d8500fb8-5ee0-431b-bede-11d50a7d58a4": {
+      "level": 41,
+      "attempts": 1,
+      "correct": 0,
+      "streak": 0,
+      "lastReviewedAt": "2026-09-15T07:20:02.332Z"
+    },
+    "6067e668-9645-45fc-b1f4-5b8b19cb556b": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T07:25:08.881Z"
+    },
+    "53678300-9f6c-4477-9454-3ff6f5f06dc6": {
+      "level": 41,
+      "attempts": 1,
+      "correct": 0,
+      "streak": 0,
+      "lastReviewedAt": "2026-09-15T08:51:24.665Z"
+    },
+    "14142efb-fc8b-48e8-92af-89f2d3a91a4e": {
+      "level": 41,
+      "attempts": 1,
+      "correct": 0,
+      "streak": 0,
+      "lastReviewedAt": "2026-09-15T08:53:19.322Z"
+    },
+    "f970e185-115a-4fd3-83f9-40497907372f": {
+      "level": 41,
+      "attempts": 1,
+      "correct": 0,
+      "streak": 0,
+      "lastReviewedAt": "2026-09-15T08:56:07.662Z"
+    },
+    "bebcda53-36c4-4a2e-b099-79d809d05c59": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T08:57:40.436Z"
+    },
+    "2fbb8d6f-d759-4b24-9adf-7742b7060ef6": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T08:58:43.943Z"
+    },
+    "c876e2e4-db0d-42cb-8bf4-3669998b9364": {
+      "level": 41,
+      "attempts": 1,
+      "correct": 0,
+      "streak": 0,
+      "lastReviewedAt": "2026-09-15T09:00:49.849Z"
+    },
+    "64591ee2-4c92-44c4-b686-e044795657f6": {
+      "level": 56,
+      "attempts": 1,
+      "correct": 1,
+      "streak": 1,
+      "lastReviewedAt": "2026-09-15T09:03:03.426Z"
+    },
+    "43681238-fc4a-40cb-8d0a-f688419edf44": {
+      "level": 41,
+      "attempts": 1,
+      "correct": 0,
+      "streak": 0,
+      "lastReviewedAt": "2026-09-15T09:21:21.503Z"
+    }
+  }
+}

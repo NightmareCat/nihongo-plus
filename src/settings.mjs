@@ -12,7 +12,9 @@ const DEFAULTS = {
   exampleCount: 2,
   concurrency: 3,
   requestTimeoutSeconds: 60,
+  quizPrefetchCount: 2,
   learningAutoFlipSeconds: 60,
+  practiceJlptLevels: ["N5", "N4", "N3", "N2", "N1"],
   providers: {
     deepseek: { label: "DeepSeek 官方", baseUrl: "https://api.deepseek.com", model: "deepseek-v4-flash" },
     "opencode-go": { label: "OpenCode Go", baseUrl: "https://opencode.ai/zen/go/v1", model: "deepseek-v4.1-flash" },
@@ -21,8 +23,28 @@ const DEFAULTS = {
 const MAX_CONCURRENCY = 50;
 const MIN_REQUEST_TIMEOUT_SECONDS = 10;
 const MAX_REQUEST_TIMEOUT_SECONDS = 600;
+const MIN_QUIZ_PREFETCH_COUNT = 1;
+const MAX_QUIZ_PREFETCH_COUNT = 3;
 const MIN_LEARNING_AUTO_FLIP_SECONDS = 10;
 const MAX_LEARNING_AUTO_FLIP_SECONDS = 600;
+const PRACTICE_JLPT_LEVELS = ["N5", "N4", "N3", "N2", "N1"];
+
+/**
+ * @description 规范化练习等级，仅保留 N5～N1，并按界面顺序去重排列。
+ */
+export function normalizePracticeJlptLevels(value, fallback = DEFAULTS.practiceJlptLevels) {
+  if (!Array.isArray(value)) return [...fallback];
+  const selected = new Set(value);
+  return PRACTICE_JLPT_LEVELS.filter((level) => selected.has(level));
+}
+
+/**
+ * @description 将试题储备数限制为 1～3，避免配置错误造成大量并行 AI 请求。
+ */
+export function normalizeQuizPrefetchCount(value, fallback = DEFAULTS.quizPrefetchCount) {
+  const parsed = Math.trunc(Number(value));
+  return Number.isFinite(parsed) ? Math.min(MAX_QUIZ_PREFETCH_COUNT, Math.max(MIN_QUIZ_PREFETCH_COUNT, parsed)) : fallback;
+}
 
 async function readJson(file, fallback) {
   try { return JSON.parse(await fs.readFile(file, "utf8")); }
@@ -40,6 +62,8 @@ export async function getSettings() {
   return {
     ...DEFAULTS,
     ...saved,
+    quizPrefetchCount: normalizeQuizPrefetchCount(saved.quizPrefetchCount),
+    practiceJlptLevels: normalizePracticeJlptLevels(saved.practiceJlptLevels),
     providers: {
       deepseek: { ...DEFAULTS.providers.deepseek, ...saved.providers?.deepseek },
       "opencode-go": { ...DEFAULTS.providers["opencode-go"], ...saved.providers?.["opencode-go"] },
@@ -76,11 +100,15 @@ export async function saveSettings(input = {}) {
       MAX_REQUEST_TIMEOUT_SECONDS,
       Math.max(MIN_REQUEST_TIMEOUT_SECONDS, Math.trunc(Number(input.requestTimeoutSeconds ?? current.requestTimeoutSeconds) || 60)),
     ),
+    // 当前题展示后只允许并行储备 1～3 道，兼顾等待时间与 API 消耗。
+    quizPrefetchCount: normalizeQuizPrefetchCount(input.quizPrefetchCount, current.quizPrefetchCount),
     // 自动翻页需留出充分阅读时间，默认 1 分钟，并限制在 10 秒至 10 分钟之间。
     learningAutoFlipSeconds: Math.min(
       MAX_LEARNING_AUTO_FLIP_SECONDS,
       Math.max(MIN_LEARNING_AUTO_FLIP_SECONDS, Math.trunc(Number(input.learningAutoFlipSeconds ?? current.learningAutoFlipSeconds) || 60)),
     ),
+    // 随机学习与考核共享该等级范围；空数组表示暂不抽取任何等级。
+    practiceJlptLevels: normalizePracticeJlptLevels(input.practiceJlptLevels, current.practiceJlptLevels),
     providers: {
       deepseek: {
         ...current.providers.deepseek,

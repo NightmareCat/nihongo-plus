@@ -28,6 +28,7 @@ export const config = {
   libraryDir: path.join(rootDir, "data", "词库"),
   libraryFile: path.join(rootDir, "data", "词库", "个人收集.json"),
   collectionsFile: path.join(rootDir, "data", "子词库.json"),
+  quizProgressFile: path.join(rootDir, "data", "学习进度.json"),
   settingsFile: path.join(rootDir, "data", "设置.json"),
   secretsFile: path.join(rootDir, "data", ".secrets.json"),
   port: Number(process.env.PORT || 4173),

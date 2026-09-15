@@ -4,6 +4,13 @@
   "exampleCount": 2,
   "concurrency": 40,
   "requestTimeoutSeconds": 600,
+  "learningAutoFlipSeconds": 60,
+  "practiceJlptLevels": [
+    "N5",
+    "N4",
+    "N3",
+    "N2"
+  ],
   "providers": {
     "deepseek": {
       "label": "DeepSeek 官方",
