@@ -744,12 +744,12 @@ function renderQuiz() {
         </div>
         ${result ? `<div class="quiz-result ${result.correct ? "is-correct" : "is-wrong"}"><strong>${result.correct ? "回答正确" : "回答错误"}</strong><p>${escapeHtml(result.analysis || "本题暂无补充解析。")}</p><small>“${escapeHtml(result.wordTerm || "本题核心词")}”的记忆水平${result.correct ? "上升" : "下降"}至 ${result.progress.level}；后续抽取概率已同步调整。</small></div>
         <section class="quiz-distractors">
-          <div class="quiz-distractor-head"><div><h3>干扰词速查</h3><p>收录状态来自本地词库实时检索；未收录词只保存词条本身。</p></div><span class="badge">${resultDistractorWords.length} 个</span></div>
+          <div class="quiz-distractor-head"><div><h3>题干生词与干扰词速查</h3><p>包含题干中的可能生词和错误选项中的干扰词；收录状态来自本地词库实时检索。</p></div><span class="badge">${resultDistractorWords.length} 个</span></div>
           ${resultDistractorWords.length ? `<div class="quiz-distractor-list">${resultDistractorWords.map((item, index) => `<article>
-            <div class="quiz-distractor-word"><strong>${rubyHtml(item.term)}</strong><span class="badge ${item.jlpt !== "未定" ? "accent" : ""}">${escapeHtml(item.jlpt || "未定")}</span></div>
+            <div class="quiz-distractor-word"><div><strong>${rubyHtml(item.term)}</strong><small>${escapeHtml(item.reading || "待读音")}</small></div><div><span class="badge">${escapeHtml(item.origin || "干扰项")}</span><span class="badge ${item.jlpt !== "未定" ? "accent" : ""}">${escapeHtml(item.jlpt || "未定")}</span></div></div>
             <p>${escapeHtml(item.meaning || "暂无释义")}</p>
             <div class="quiz-distractor-state"><span class="badge ${item.collected ? "green" : ""}">${item.collected ? "已收录" : "未收录"}</span>${item.collected ? "" : `<button type="button" class="secondary-btn small-btn" data-add-distractor="${index}">＋ 添加到词库</button>`}</div>
-          </article>`).join("")}</div>` : `<p class="learn-empty">本题错误选项中没有需要单独收录的干扰词。</p>`}
+          </article>`).join("")}</div>` : `<p class="learn-empty">本题题干和错误选项中没有需要单独列出的词。</p>`}
         </section>` : ""}
       </div>
       <footer class="quiz-actions">

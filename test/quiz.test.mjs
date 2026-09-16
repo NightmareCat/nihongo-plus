@@ -30,11 +30,11 @@ test("模型答案在发往界面前会被洗牌且保留正确项映射", () =>
     correctIndex: 1,
     sourceOptionIndex: 1,
     analysis: "解析",
-    distractorWords: [{ term: "見送る", meaning: "目送；暂缓", jlpt: "n3" }],
+    distractorWords: [{ term: "見送る", reading: "みおくる", meaning: "目送；暂缓", jlpt: "n3", origin: "题干" }],
   }, QUIZ_TYPES[2], () => 0, true);
   const correct = normalized.options.find((option) => option.id === normalized.correctOptionId);
   assert.equal(correct.text, "乙");
-  assert.deepEqual(normalized.distractorWords, [{ term: "見送る", meaning: "目送；暂缓", jlpt: "N3" }]);
+  assert.deepEqual(normalized.distractorWords, [{ term: "見送る", reading: "みおくる", meaning: "目送；暂缓", jlpt: "N3", origin: "题干" }]);
   assert.notDeepEqual(normalized.options.map((option) => option.text), ["甲", "乙", "丙", "丁"]);
 });
 

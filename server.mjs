@@ -122,8 +122,10 @@ async function handleApi(request, response, url) {
       const existing = library.words.find((word) => normalizeTerm(word.term) === normalizeTerm(item.term));
       return {
         term: item.term,
+        reading: existing?.reading || item.reading || "待读音",
         meaning: existing?.meanings?.join("；") || item.meaning || "暂无释义",
         jlpt: existing?.jlpt && existing.jlpt !== "未定" ? existing.jlpt : item.jlpt,
+        origin: item.origin,
         collected: Boolean(existing),
         wordId: existing?.id || "",
       };

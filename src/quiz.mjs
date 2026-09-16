@@ -33,8 +33,10 @@ export function normalizeQuizPayload(payload, requestedType, random = Math.rando
     .slice(0, 8)
     .map((item) => ({
       term: cleanText(item?.term),
+      reading: cleanText(item?.reading),
       meaning: cleanText(item?.meaning),
       jlpt: /^N[1-5]$/.test(cleanText(item?.jlpt).toUpperCase()) ? cleanText(item.jlpt).toUpperCase() : "未定",
+      origin: cleanText(item?.origin) === "题干" ? "题干" : "干扰项",
     }))
     .filter((item, index, list) => item.term && list.findIndex((candidate) => candidate.term === item.term) === index);
   const options = sourceOptions.slice(0, 4).map((option, index) => ({
@@ -78,7 +80,7 @@ export function buildQuizPrompt(word, type, distractorWords, sourceShouldBeCorre
   const sourceRole = sourceShouldBeCorrect
     ? "本题必须让核心考查词（或其正确活用形）成为正确答案。"
     : "本题必须让核心考查词（或与其直接对应的形式）出现在选项中，但作为错误答案；正确答案使用另一个自然表达。";
-  return `请为日语学习者生成一道四选一单选题。\n题型：${type.label}\n核心考查词：${JSON.stringify(word)}\n可参考的其他词条：${JSON.stringify(distractorWords)}\n要求：\n1. 返回严格 JSON，不要 Markdown，字段为 question、stem、options、correctIndex、sourceOptionIndex、analysis、distractorWords。\n2. options 必须恰好 4 项，每项为 {"text":"选项文字","explanation":"该选项为何正确或错误的简短中文说明"}；correctIndex 和 sourceOptionIndex 都是从 0 开始的整数，后者必须指向核心词对应的选项。\n3. distractorWords 是错误选项中值得学习的日语单词数组，每项严格使用 {"term":"辞书形词条","meaning":"简体中文含义","jlpt":"N1至N5或未定"}。只列独立单词，不列助词、整句、中文选项或单纯活用词尾；没有时返回空数组。\n4. question 使用简体中文给出作答指令，stem 是实际题干或带空格的自然日语语境。\n5. analysis、每个 options[i].explanation 以及 distractorWords 中的 meaning 必须使用自然、易懂的简体中文。严禁只写纯日语解释或用日语句子代替中文解析；如需提到日语词、活用或例句，应先引用日语内容，再立即用中文说明其含义、语法作用以及正确或错误的原因。\n6. 每个选项都必须提供 explanation，包括正确选项和三个错误选项；不要只复述选项文字。\n7. ${sourceRole}\n8. 题干和干扰项可以使用词库之外的自然日语，不要把“核心考查词”字样或答案提示写进题面。\n9. 四个选项必须互不相同，且只能有一个无歧义的正确答案；助词题需给出足够语境，读音题需明确考查哪个词。\n10. 无论核心词自身属于哪个 JLPT 等级，都将题干语法、语境信息、词汇搭配和辨析难度严格控制在 JLPT N3 水平；必要时对超纲词提供足够线索。`;
+  return `请为日语学习者生成一道四选一单选题。\n题型：${type.label}\n核心考查词：${JSON.stringify(word)}\n可参考的其他词条：${JSON.stringify(distractorWords)}\n要求：\n1. 返回严格 JSON，不要 Markdown，字段为 question、stem、options、correctIndex、sourceOptionIndex、analysis、distractorWords。\n2. options 必须恰好 4 项，每项为 {"text":"选项文字","explanation":"该选项为何正确或错误的简短中文说明"}；correctIndex 和 sourceOptionIndex 都是从 0 开始的整数，后者必须指向核心词对应的选项。\n3. distractorWords 是“题干生词与干扰词”数组：既列出错误选项中值得学习的日语单词，也列出 stem 题干中 N3 学习者可能不熟悉、但有助于理解题意的单词。每项严格使用 {"term":"辞书形词条","reading":"完整假名读音","meaning":"简体中文含义","jlpt":"N1至N5或未定","origin":"题干或干扰项"}。term 必须使用辞书形，reading 必须填写；只列独立单词，不列助词、整句、中文选项、核心考查词或单纯活用词尾；没有时返回空数组。\n4. question 使用简体中文给出作答指令，stem 是实际题干或带空格的自然日语语境。\n5. analysis、每个 options[i].explanation 以及 distractorWords 中的 meaning 必须使用自然、易懂的简体中文。严禁只写纯日语解释或用日语句子代替中文解析；如需提到日语词、活用或例句，应先引用日语内容，再立即用中文说明其含义、语法作用以及正确或错误的原因。\n6. 每个选项都必须提供 explanation，包括正确选项和三个错误选项；不要只复述选项文字。\n7. ${sourceRole}\n8. 题干和干扰项可以使用词库之外的自然日语，不要把“核心考查词”字样或答案提示写进题面。\n9. 四个选项必须互不相同，且只能有一个无歧义的正确答案；助词题需给出足够语境，读音题需明确考查哪个词。\n10. 无论核心词自身属于哪个 JLPT 等级，都将题干语法、语境信息、词汇搭配和辨析难度严格控制在 JLPT N3 水平；必要时对超纲词提供足够线索。`;
 }
 
 export async function generateQuizQuestion(word, type, distractorWords = [], signal) {

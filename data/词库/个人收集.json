@@ -1,8 +1,947 @@
 {
   "schemaVersion": 1,
   "name": "个人收集",
-  "updatedAt": "2026-09-15T09:15:33.728Z",
+  "updatedAt": "2026-09-16T06:11:31.533Z",
   "words": [
+    {
+      "id": "8341da20-9ceb-4768-b592-595a50ac4d86",
+      "term": "破る",
+      "reading": "",
+      "partOfSpeech": {
+        "category": "未分类",
+        "detail": "",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [],
+      "jlpt": "未定",
+      "tags": [],
+      "conjugations": [],
+      "examples": [],
+      "notes": "",
+      "aiStatus": "pending",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T06:11:31.533Z",
+      "updatedAt": "2026-09-16T06:11:31.533Z"
+    },
+    {
+      "id": "d5897a28-b944-4b80-896d-1aefe3ab4bb2",
+      "term": "重い",
+      "reading": "",
+      "partOfSpeech": {
+        "category": "未分类",
+        "detail": "",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [],
+      "jlpt": "未定",
+      "tags": [],
+      "conjugations": [],
+      "examples": [],
+      "notes": "",
+      "aiStatus": "pending",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T06:07:14.236Z",
+      "updatedAt": "2026-09-16T06:07:14.236Z"
+    },
+    {
+      "id": "597acf71-6d98-4c70-8168-1f07e32b6f51",
+      "term": "複雑",
+      "reading": "",
+      "partOfSpeech": {
+        "category": "未分类",
+        "detail": "",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [],
+      "jlpt": "未定",
+      "tags": [],
+      "conjugations": [],
+      "examples": [],
+      "notes": "",
+      "aiStatus": "pending",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T06:02:08.541Z",
+      "updatedAt": "2026-09-16T06:02:08.541Z"
+    },
+    {
+      "id": "d4cb920b-cffd-4196-9a59-69c8583f742a",
+      "term": "別れ際",
+      "reading": "",
+      "partOfSpeech": {
+        "category": "未分类",
+        "detail": "",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [],
+      "jlpt": "未定",
+      "tags": [],
+      "conjugations": [],
+      "examples": [],
+      "notes": "",
+      "aiStatus": "pending",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T05:54:45.798Z",
+      "updatedAt": "2026-09-16T05:54:45.798Z"
+    },
+    {
+      "id": "76d8da95-0579-4d9b-84cd-1bb508d273ae",
+      "term": "引き出す",
+      "reading": "",
+      "partOfSpeech": {
+        "category": "未分类",
+        "detail": "",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [],
+      "jlpt": "未定",
+      "tags": [],
+      "conjugations": [],
+      "examples": [],
+      "notes": "",
+      "aiStatus": "pending",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T05:54:27.475Z",
+      "updatedAt": "2026-09-16T05:54:27.475Z"
+    },
+    {
+      "id": "a30725bc-809e-4af0-90c7-4709f6ed4ed0",
+      "term": "去る",
+      "reading": "",
+      "partOfSpeech": {
+        "category": "未分类",
+        "detail": "",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [],
+      "jlpt": "未定",
+      "tags": [],
+      "conjugations": [],
+      "examples": [],
+      "notes": "",
+      "aiStatus": "pending",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T05:52:35.969Z",
+      "updatedAt": "2026-09-16T05:52:35.969Z"
+    },
+    {
+      "id": "9d428d88-f71f-4aed-bf04-1d1e5b72ffea",
+      "term": "詳しい",
+      "reading": "くわしい",
+      "partOfSpeech": {
+        "category": "形容词",
+        "detail": "い形容词",
+        "conjugationClass": "い形容词",
+        "transitivity": "不适用"
+      },
+      "meanings": [
+        "详细的；详尽的",
+        "精通的；熟悉的；对……很了解"
+      ],
+      "jlpt": "N3",
+      "tags": [
+        "い形容词",
+        "N3",
+        "常用",
+        "形容词"
+      ],
+      "conjugations": [
+        {
+          "name": "现在肯定",
+          "form": "詳しい",
+          "example": "この<ruby>説明<rt>せつめい</rt></ruby>はとても<ruby>詳<rt>くわ</rt></ruby>しい。",
+          "exampleChinese": "这个说明非常详细。"
+        },
+        {
+          "name": "现在否定",
+          "form": "詳しくない",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>経営<rt>けいえい</rt></ruby>に<ruby>詳<rt>くわ</rt></ruby>しくない。",
+          "exampleChinese": "他不熟悉经营。"
+        },
+        {
+          "name": "过去肯定",
+          "form": "詳しかった",
+          "example": "<ruby>昨日<rt>きのう</rt></ruby>の<ruby>説明<rt>せつめい</rt></ruby>は<ruby>詳<rt>くわ</rt></ruby>しかった。",
+          "exampleChinese": "昨天的说明很详细。"
+        },
+        {
+          "name": "过去否定",
+          "form": "詳しくなかった",
+          "example": "その<ruby>時<rt>とき</rt></ruby>は<ruby>事情<rt>じじょう</rt></ruby>に<ruby>詳<rt>くわ</rt></ruby>しくなかった。",
+          "exampleChinese": "当时不了解情况。"
+        },
+        {
+          "name": "て形",
+          "form": "詳しくて",
+          "example": "この<ruby>資料<rt>しりょう</rt></ruby>は<ruby>詳<rt>くわ</rt></ruby>しくて<ruby>分<rt>わ</rt></ruby>かりやすい。",
+          "exampleChinese": "这份资料很详细，容易理解。"
+        },
+        {
+          "name": "条件形",
+          "form": "詳しければ",
+          "example": "<ruby>地図<rt>ちず</rt></ruby>が<ruby>詳<rt>くわ</rt></ruby>しければ、<ruby>迷<rt>まよ</rt></ruby>わない。",
+          "exampleChinese": "如果地图详细，就不会迷路。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>日本<rt>にほん</rt></ruby><ruby>史<rt>し</rt></ruby>に<ruby>詳<rt>くわ</rt></ruby>しい。",
+          "chinese": "他熟悉日本历史。"
+        },
+        {
+          "japanese": "この<ruby>説明書<rt>せつめいしょ</rt></ruby>はとても<ruby>詳<rt>くわ</rt></ruby>しい。",
+          "chinese": "这本说明书非常详细。"
+        }
+      ],
+      "notes": "「詳しい」是表示信息详细或对某领域知识丰富的い形容词。作定语时直接接名词，如「詳しい説明」。否定和过去形按い形容词活用：詳しくない、詳しかった。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T05:22:05.738Z",
+      "updatedAt": "2026-09-16T05:49:12.591Z"
+    },
+    {
+      "id": "c3116105-fcad-424a-99bd-752c990f496c",
+      "term": "べき",
+      "reading": "べき",
+      "partOfSpeech": {
+        "category": "语法结构",
+        "detail": "助动词性文型。接动词辞书形，表示应该、应当、理应。否定为「べきではない」，过去为「べきだった」。",
+        "conjugationClass": "特殊活用（べきだ・べきではない・べきだった等）",
+        "transitivity": ""
+      },
+      "meanings": [
+        "应该，应当；表示义务、当然或建议。",
+        "理应，按理应当；表示根据道理、常识或责任感的判断。",
+        "（否定）不应该，不要；「べきではない」表示禁止或劝诫。",
+        "（过去）本该……；「べきだった」表示后悔、责备或遗憾。"
+      ],
+      "jlpt": "N2",
+      "tags": [
+        "N2",
+        "语法结构",
+        "助动词性",
+        "义务",
+        "建议",
+        "理应",
+        "书面语",
+        "常用"
+      ],
+      "conjugations": [
+        {
+          "name": "基本形（連体形）",
+          "form": "べき",
+          "example": "<ruby>私<rt>わたし</rt></ruby>たちは<ruby>守<rt>まも</rt></ruby>るべき<ruby>規則<rt>きそく</rt></ruby>がある。",
+          "exampleChinese": "我们有应该遵守的规则。"
+        },
+        {
+          "name": "現在肯定（だ）",
+          "form": "べきだ",
+          "example": "<ruby>約束<rt>やくそく</rt></ruby>は<ruby>守<rt>まも</rt></ruby>るべきだ。",
+          "exampleChinese": "应该遵守约定。"
+        },
+        {
+          "name": "現在否定",
+          "form": "べきではない",
+          "example": "<ruby>人<rt>ひと</rt></ruby>の<ruby>悪口<rt>わるぐち</rt></ruby>を<ruby>言<rt>い</rt></ruby>うべきではない。",
+          "exampleChinese": "不应该说别人坏话。"
+        },
+        {
+          "name": "過去肯定",
+          "form": "べきだった",
+          "example": "<ruby>昨日<rt>きのう</rt></ruby>もっと<ruby>勉強<rt>べんきょう</rt></ruby>するべきだった。",
+          "exampleChinese": "昨天本应该更努力学习。"
+        },
+        {
+          "name": "過去否定",
+          "form": "べきではなかった",
+          "example": "<ruby>彼<rt>かれ</rt></ruby>に<ruby>本当<rt>ほんとう</rt></ruby>のことを<ruby>話<rt>はな</rt></ruby>すべきではなかった。",
+          "exampleChinese": "本来不应该跟他说真话。"
+        },
+        {
+          "name": "丁寧形",
+          "form": "べきです",
+          "example": "<ruby>目上<rt>めうえ</rt></ruby>の<ruby>人<rt>ひと</rt></ruby>には<ruby>敬語<rt>けいご</rt></ruby>を<ruby>使<rt>つか</rt></ruby>うべきです。",
+          "exampleChinese": "对长辈应该使用敬语。"
+        },
+        {
+          "name": "丁寧否定",
+          "form": "べきではありません",
+          "example": "<ruby>図書館<rt>としょかん</rt></ruby>で<ruby>大声<rt>おおごえ</rt></ruby>を<ruby>出<rt>だ</rt></ruby>すべきではありません。",
+          "exampleChinese": "不应该在图书馆大声说话。"
+        },
+        {
+          "name": "口語否定",
+          "form": "べきじゃない",
+          "example": "<ruby>今夜<rt>こんや</rt></ruby>は<ruby>無理<rt>むり</rt></ruby>するべきじゃない。",
+          "exampleChinese": "今晚不应该勉强。"
+        },
+        {
+          "name": "サ変動詞形",
+          "form": "すべき",
+          "example": "<ruby>学生<rt>がくせい</rt></ruby>は<ruby>勉強<rt>べんきょう</rt></ruby>すべきだ。",
+          "exampleChinese": "学生应该学习。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>学生<rt>がくせい</rt></ruby>は<ruby>先生<rt>せんせい</rt></ruby>の<ruby>話<rt>はなし</rt></ruby>を<ruby>聞<rt>き</rt></ruby>くべきだ。",
+          "chinese": "学生应该听老师的话。"
+        },
+        {
+          "japanese": "<ruby>他人<rt>たにん</rt></ruby>の<ruby>秘密<rt>ひみつ</rt></ruby>を<ruby>簡単<rt>かんたん</rt></ruby>に<ruby>話<rt>はな</rt></ruby>すべきではない。",
+          "chinese": "不应该轻易说出别人的秘密。"
+        }
+      ],
+      "notes": "接续：動詞辞書形 + べき。サ変動詞は「するべき」より「すべき」が好まれる。否定「べきではない／べきじゃない」、過去「べきだった」、丁寧「べきです／べきではありません」。语气较强，多用于书面语和正式场合，表示道德义务、当然或建议；一般不用于单纯表达个人希望。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T05:21:08.105Z",
+      "updatedAt": "2026-09-16T05:49:36.079Z"
+    },
+    {
+      "id": "c7145f04-b9a2-4d07-a179-0001e262ec64",
+      "term": "現実",
+      "reading": "げんじつ",
+      "partOfSpeech": {
+        "category": "名词",
+        "detail": "普通名词，可加「に」作副词性用法（現実に），也可构成な形容词性「現実的」",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [
+        "现实；实际存在的事态",
+        "真实情况；与理想、空想相对的实际状况",
+        "（哲学用法）现实；实在"
+      ],
+      "jlpt": "N3",
+      "tags": [
+        "名词",
+        "汉语词",
+        "抽象名词",
+        "常用词",
+        "书面语兼口语"
+      ],
+      "conjugations": [],
+      "examples": [
+        {
+          "japanese": "<ruby>現実<rt>げんじつ</rt></ruby>は<ruby>思<rt>おも</rt></ruby>っていたよりずっと<ruby>厳<rt>きび</rt></ruby>しかった。",
+          "chinese": "现实比我原本想象的严峻得多。"
+        },
+        {
+          "japanese": "その<ruby>夢<rt>ゆめ</rt></ruby>はまだ<ruby>現実<rt>げんじつ</rt></ruby>にはなっていない。",
+          "chinese": "那个梦想还没有变成现实。"
+        }
+      ],
+      "notes": "「現実」表示与理想、梦想、空想相对的实际状况；「実際」侧重“实际情况、实际上”，多用于说明具体情形，而「現実」更强调“不容回避的真实处境”。常见搭配：現実になる／現実とする／現実を直視する／現実的（な）／現実味／現実逃避。作副词时用「現実に」，如「現実に起こった事件」。JLPT 相当难度为 N3：属常用抽象名词，中级学习者较早接触，但抽象度高于基础生活词。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T03:20:51.078Z",
+      "updatedAt": "2026-09-16T05:48:53.182Z"
+    },
+    {
+      "id": "d474b9b4-f829-4719-ad42-99ebba027ef0",
+      "term": "締め切る",
+      "reading": "しめきる",
+      "partOfSpeech": {
+        "category": "动词",
+        "detail": "复合动词，由「締める」与「切る」构成，表示完全关闭或截止",
+        "conjugationClass": "五段活用",
+        "transitivity": "他动词"
+      },
+      "meanings": [
+        "截止，结束（申请、报名、受理等的期限）",
+        "完全关闭，关紧（门窗等）"
+      ],
+      "jlpt": "N2",
+      "tags": [
+        "复合动词",
+        "五段动词",
+        "他动词",
+        "商务",
+        "书面语",
+        "截止"
+      ],
+      "conjugations": [
+        {
+          "name": "辞書形",
+          "form": "締め切る",
+          "example": "この<ruby>企画<rt>きかく</rt></ruby>への<ruby>応募<rt>おうぼ</rt></ruby>は<ruby>今週<rt>こんしゅう</rt></ruby>で<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>る。",
+          "exampleChinese": "这项企划的报名本周截止。"
+        },
+        {
+          "name": "ます形",
+          "form": "締め切ります",
+          "example": "<ruby>受付<rt>うけつけ</rt></ruby>は<ruby>午後<rt>ごご</rt></ruby>6<ruby>時<rt>じ</rt></ruby>に<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>ります。",
+          "exampleChinese": "受理下午6点截止。"
+        },
+        {
+          "name": "て形",
+          "form": "締め切って",
+          "example": "<ruby>募集<rt>ぼしゅう</rt></ruby>を<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>って、<ruby>次<rt>つぎ</rt></ruby>の<ruby>案内<rt>あんない</rt></ruby>を<ruby>出<rt>だ</rt></ruby>します。",
+          "exampleChinese": "截止招募后，发布下次通知。"
+        },
+        {
+          "name": "た形",
+          "form": "締め切った",
+          "example": "<ruby>昨日<rt>きのう</rt></ruby>、<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>みを<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>った。",
+          "exampleChinese": "昨天截止了报名。"
+        },
+        {
+          "name": "ない形",
+          "form": "締め切らない",
+          "example": "<ruby>受付<rt>うけつけ</rt></ruby>はまだ<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>らない。",
+          "exampleChinese": "受理还没有截止。"
+        },
+        {
+          "name": "なかった形",
+          "form": "締め切らなかった",
+          "example": "<ruby>昨日<rt>きのう</rt></ruby>は<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>らなかった。",
+          "exampleChinese": "昨天没有截止。"
+        },
+        {
+          "name": "意向形",
+          "form": "締め切ろう",
+          "example": "<ruby>予定<rt>よてい</rt></ruby>どおり<ruby>今週<rt>こんしゅう</rt></ruby>で<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>ろう。",
+          "exampleChinese": "就按计划本周截止吧。"
+        },
+        {
+          "name": "命令形",
+          "form": "締め切れ",
+          "example": "<ruby>速<rt>すみ</rt></ruby>やかに<ruby>受付<rt>うけつけ</rt></ruby>を<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>れ。",
+          "exampleChinese": "赶快截止受理。"
+        },
+        {
+          "name": "可能形",
+          "form": "締め切れる",
+          "example": "<ruby>今日<rt>きょう</rt></ruby><ruby>中<rt>じゅう</rt></ruby>に<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>れる。",
+          "exampleChinese": "今天之内能截止。"
+        },
+        {
+          "name": "被动形",
+          "form": "締め切られる",
+          "example": "<ruby>応募<rt>おうぼ</rt></ruby>は<ruby>予定<rt>よてい</rt></ruby>より<ruby>早<rt>はや</rt></ruby>く<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>られた。",
+          "exampleChinese": "报名比预定提前截止了。"
+        },
+        {
+          "name": "使役形",
+          "form": "締め切らせる",
+          "example": "<ruby>担当者<rt>たんとうしゃ</rt></ruby>に<ruby>受付<rt>うけつけ</rt></ruby>を<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>らせた。",
+          "exampleChinese": "让负责人截止了受理。"
+        },
+        {
+          "name": "使役被动形",
+          "form": "締め切らせられる",
+          "example": "<ruby>上司<rt>じょうし</rt></ruby>に<ruby>予定<rt>よてい</rt></ruby>より<ruby>早<rt>はや</rt></ruby>く<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>らせられた。",
+          "exampleChinese": "被上司要求提前截止了。"
+        },
+        {
+          "name": "条件形（ば）",
+          "form": "締め切れば",
+          "example": "<ruby>今週<rt>こんしゅう</rt></ruby><ruby>中<rt>じゅう</rt></ruby>に<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>れば、<ruby>来週<rt>らいしゅう</rt></ruby>から<ruby>審査<rt>しんさ</rt></ruby>を<ruby>始<rt>はじ</rt></ruby>められる。",
+          "exampleChinese": "如果本周内截止，下周就能开始审查。"
+        },
+        {
+          "name": "条件形（たら）",
+          "form": "締め切ったら",
+          "example": "<ruby>明日<rt>あした</rt></ruby>までに<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>ったら、<ruby>連絡<rt>れんらく</rt></ruby>してください。",
+          "exampleChinese": "如果在明天之前截止，请联系我。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>応募<rt>おうぼ</rt></ruby><ruby>受付<rt>うけつけ</rt></ruby>は<ruby>今日<rt>きょう</rt></ruby>の<ruby>五時<rt>ごじ</rt></ruby>に<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>ります。",
+          "chinese": "报名受理今天五点截止。"
+        },
+        {
+          "japanese": "<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>みを<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>った<ruby>後<rt>あと</rt></ruby>での<ruby>変更<rt>へんこう</rt></ruby>はできません。",
+          "chinese": "报名截止后不能更改。"
+        }
+      ],
+      "notes": "复合动词「締める」＋「切る」。多用于申请、报名、受理等期限的截止；也可表示把门窗完全关紧。活用按五段动词变化，如「締め切らない」「締め切れば」。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T03:05:27.986Z",
+      "updatedAt": "2026-09-16T03:07:13.695Z"
+    },
+    {
+      "id": "f843e35c-ef04-415a-b3e9-54d155fbeb4e",
+      "term": "申し込む",
+      "reading": "もうしこむ",
+      "partOfSpeech": {
+        "category": "动词",
+        "detail": "五段活用复合动词，他动词；表示申请、报名或提出（比赛、结婚等）",
+        "conjugationClass": "五段",
+        "transitivity": "他动词"
+      },
+      "meanings": [
+        "申请；报名；应征",
+        "提议；提出（比赛、结婚等）",
+        "向上级或对方正式提出请求"
+      ],
+      "jlpt": "N3",
+      "tags": [
+        "动词",
+        "五段动词",
+        "他动词",
+        "复合动词",
+        "日常用语",
+        "商务",
+        "N3"
+      ],
+      "conjugations": [
+        {
+          "name": "辞書形",
+          "form": "申し込む",
+          "example": "<ruby>来週<rt>らいしゅう</rt></ruby>の<ruby>試験<rt>しけん</rt></ruby>に<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>むつもりです。",
+          "exampleChinese": "打算报名下周的考试。"
+        },
+        {
+          "name": "ます形",
+          "form": "申し込みます",
+          "example": "<ruby>窓口<rt>まどぐち</rt></ruby>で<ruby>参加<rt>さんか</rt></ruby>を<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>みます。",
+          "exampleChinese": "在窗口申请参加。"
+        },
+        {
+          "name": "て形",
+          "form": "申し込んで",
+          "example": "さっきインターネットで<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>んで、<ruby>確認<rt>かくにん</rt></ruby>メールを<ruby>待<rt>ま</rt></ruby>っています。",
+          "exampleChinese": "刚才在网上申请了，正在等确认邮件。"
+        },
+        {
+          "name": "た形",
+          "form": "申し込んだ",
+          "example": "<ruby>昨日<rt>きのう</rt></ruby>、<ruby>友達<rt>ともだち</rt></ruby>と<ruby>一緒<rt>いっしょ</rt></ruby>にマラソン<ruby>大会<rt>たいかい</rt></ruby>に<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>んだ。",
+          "exampleChinese": "昨天和朋友一起报名了马拉松大会。"
+        },
+        {
+          "name": "ない形",
+          "form": "申し込まない",
+          "example": "<ruby>締<rt>し</rt></ruby>め<ruby>切<rt>き</rt></ruby>りまでに<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>まないと、<ruby>参加<rt>さんか</rt></ruby>できません。",
+          "exampleChinese": "如果不在截止日期前申请，就不能参加。"
+        },
+        {
+          "name": "なかった形",
+          "form": "申し込まなかった",
+          "example": "<ruby>期限<rt>きげん</rt></ruby>が<ruby>過<rt>す</rt></ruby>ぎていたので、<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>まなかった。",
+          "exampleChinese": "因为期限已过，所以没有申请。"
+        },
+        {
+          "name": "意向形",
+          "form": "申し込もう",
+          "example": "<ruby>明日<rt>あした</rt></ruby>、<ruby>電話<rt>でんわ</rt></ruby>で<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>もうと<ruby>思<rt>おも</rt></ruby>います。",
+          "exampleChinese": "想明天打电话申请。"
+        },
+        {
+          "name": "命令形",
+          "form": "申し込め",
+          "example": "<ruby>早<rt>はや</rt></ruby>く<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>めと<ruby>上司<rt>じょうし</rt></ruby>に<ruby>言<rt>い</rt></ruby>われた。",
+          "exampleChinese": "被上司说了“快点申请”。"
+        },
+        {
+          "name": "可能形",
+          "form": "申し込める",
+          "example": "このサイトからなら、いつでも<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>めます。",
+          "exampleChinese": "从这个网站的话，随时都可以申请。"
+        },
+        {
+          "name": "被动形",
+          "form": "申し込まれる",
+          "example": "そのイベントは<ruby>多<rt>おお</rt></ruby>くの<ruby>人<rt>ひと</rt></ruby>に<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>まれている。",
+          "exampleChinese": "那个活动被很多人申请。"
+        },
+        {
+          "name": "使役形",
+          "form": "申し込ませる",
+          "example": "<ruby>部長<rt>ぶちょう</rt></ruby>は<ruby>部下<rt>ぶか</rt></ruby>にセミナーへの<ruby>参加<rt>さんか</rt></ruby>を<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>ませた。",
+          "exampleChinese": "部长让部下申请参加研讨会。"
+        },
+        {
+          "name": "使役被动形",
+          "form": "申し込まされる",
+          "example": "<ruby>私<rt>わたし</rt></ruby>は<ruby>上司<rt>じょうし</rt></ruby>の<ruby>指示<rt>しじ</rt></ruby>で<ruby>研修<rt>けんしゅう</rt></ruby>に<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>まされた。",
+          "exampleChinese": "我在上司的指示下被迫申请了培训。"
+        },
+        {
+          "name": "条件形（ば）",
+          "form": "申し込めば",
+          "example": "<ruby>会員<rt>かいいん</rt></ruby>でなくても、<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>めば<ruby>参加<rt>さんか</rt></ruby>できます。",
+          "exampleChinese": "即使不是会员，只要申请就能参加。"
+        },
+        {
+          "name": "条件形（たら）",
+          "form": "申し込んだら",
+          "example": "<ruby>先<rt>さき</rt></ruby>に<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>んだら、<ruby>割引<rt>わりびき</rt></ruby>が<ruby>適用<rt>てきよう</rt></ruby>されます。",
+          "exampleChinese": "如果先申请，就会适用折扣。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "インターネットで<ruby>会員<rt>かいいん</rt></ruby>に<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>むと、<ruby>割引<rt>わりびき</rt></ruby>が<ruby>受<rt>う</rt></ruby>けられます。",
+          "chinese": "在网上申请成为会员的话，可以享受折扣。"
+        },
+        {
+          "japanese": "<ruby>彼<rt>かれ</rt></ruby>は<ruby>彼女<rt>かのじょ</rt></ruby>に<ruby>結婚<rt>けっこん</rt></ruby>を<ruby>申<rt>もう</rt></ruby>し<ruby>込<rt>こ</rt></ruby>んだ。",
+          "chinese": "他向女友求婚了。"
+        }
+      ],
+      "notes": "由「申す」与「込む」构成的复合动词。常见搭配为「～に申し込む」（向某处申请/报名）和「～を申し込む」（提出某事，如比赛、结婚）。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T03:04:24.829Z",
+      "updatedAt": "2026-09-16T03:07:02.140Z"
+    },
+    {
+      "id": "315d4db6-3718-4570-b7f7-35a5da16c26b",
+      "term": "片付く",
+      "reading": "かたづく",
+      "partOfSpeech": {
+        "category": "动词",
+        "detail": "五段活用（カ行五段）",
+        "conjugationClass": "五段",
+        "transitivity": "自动词"
+      },
+      "meanings": [
+        "收拾整齐；整理好",
+        "得到解决；处理完；了结",
+        "出嫁；嫁出去（口语，指女子结婚离开娘家）"
+      ],
+      "jlpt": "N3",
+      "tags": [
+        "自动词",
+        "五段动词",
+        "日常用语",
+        "状态变化",
+        "口语"
+      ],
+      "conjugations": [
+        {
+          "name": "辞書形",
+          "form": "片付く",
+          "example": "<ruby>部屋<rt>へや</rt></ruby>が<ruby>早<rt>はや</rt></ruby>く<ruby>片付<rt>かたづ</rt></ruby>くといいな。",
+          "exampleChinese": "房间能早点收拾好就好了。"
+        },
+        {
+          "name": "ます形",
+          "form": "片付きます",
+          "example": "<ruby>部屋<rt>へや</rt></ruby>はもうすぐ<ruby>片付<rt>かたづ</rt></ruby>きます。",
+          "exampleChinese": "房间马上就要收拾好了。"
+        },
+        {
+          "name": "て形",
+          "form": "片付いて",
+          "example": "<ruby>机<rt>つくえ</rt></ruby>の<ruby>上<rt>うえ</rt></ruby>が<ruby>片付<rt>かたづ</rt></ruby>いて、<ruby>気持<rt>きも</rt></ruby>ちがいい。",
+          "exampleChinese": "桌子上收拾整齐了，心情很好。"
+        },
+        {
+          "name": "た形",
+          "form": "片付いた",
+          "example": "やっと<ruby>部屋<rt>へや</rt></ruby>が<ruby>片付<rt>かたづ</rt></ruby>いた。",
+          "exampleChinese": "房间终于收拾好了。"
+        },
+        {
+          "name": "ない形",
+          "form": "片付かない",
+          "example": "<ruby>忙<rt>いそが</rt></ruby>しくて<ruby>部屋<rt>へや</rt></ruby>が<ruby>片付<rt>かたづ</rt></ruby>かない。",
+          "exampleChinese": "因为忙，房间收拾不完。"
+        },
+        {
+          "name": "なかった形",
+          "form": "片付かなかった",
+          "example": "<ruby>昨日<rt>きのう</rt></ruby>は<ruby>疲<rt>つか</rt></ruby>れて、<ruby>部屋<rt>へや</rt></ruby>が<ruby>片付<rt>かたづ</rt></ruby>かなかった。",
+          "exampleChinese": "昨天太累了，房间没能收拾好。"
+        },
+        {
+          "name": "意向形",
+          "form": "片付こう",
+          "example": "<ruby>部屋<rt>へや</rt></ruby>が<ruby>片付<rt>かたづ</rt></ruby>こうが<ruby>片付<rt>かたづ</rt></ruby>くまいが、<ruby>私<rt>わたし</rt></ruby>は<ruby>気<rt>き</rt></ruby>にしない。",
+          "exampleChinese": "房间整不整理好，我都不在意。"
+        },
+        {
+          "name": "命令形",
+          "form": "片付け",
+          "example": "さっさと<ruby>片付<rt>かたづ</rt></ruby>け！",
+          "exampleChinese": "快点收拾！"
+        },
+        {
+          "name": "可能形",
+          "form": "片付ける",
+          "example": "この<ruby>仕事<rt>しごと</rt></ruby>は<ruby>一人<rt>ひとり</rt></ruby>でも<ruby>片付<rt>かたづ</rt></ruby>ける。",
+          "exampleChinese": "这项工作一个人也能完成。"
+        },
+        {
+          "name": "被动形",
+          "form": "片付かれる",
+          "example": "<ruby>私<rt>わたし</rt></ruby>の<ruby>机<rt>つくえ</rt></ruby>が<ruby>勝手<rt>かって</rt></ruby>に<ruby>片付<rt>かたづ</rt></ruby>かれて、<ruby>書類<rt>しょるい</rt></ruby>が<ruby>見<rt>み</rt></ruby>つからない。",
+          "exampleChinese": "我的桌子被人擅自收拾了，文件找不到了。"
+        },
+        {
+          "name": "使役形",
+          "form": "片付かせる",
+          "example": "<ruby>親<rt>おや</rt></ruby>は<ruby>娘<rt>むすめ</rt></ruby>を<ruby>早<rt>はや</rt></ruby>く<ruby>片付<rt>かたづ</rt></ruby>かせたがっている。",
+          "exampleChinese": "父母想让女儿早点嫁出去。"
+        },
+        {
+          "name": "使役被动形",
+          "form": "片付かされる",
+          "example": "<ruby>娘<rt>むすめ</rt></ruby>は<ruby>親<rt>おや</rt></ruby>に<ruby>片付<rt>かたづ</rt></ruby>かされた。",
+          "exampleChinese": "女儿被父母逼着嫁了出去。"
+        },
+        {
+          "name": "条件形（ば）",
+          "form": "片付ければ",
+          "example": "<ruby>部屋<rt>へや</rt></ruby>が<ruby>片付<rt>かたづ</rt></ruby>けば、<ruby>新<rt>あたら</rt></ruby>しい<ruby>家具<rt>かぐ</rt></ruby>を<ruby>買<rt>か</rt></ruby>おう。",
+          "exampleChinese": "如果房间收拾好了，就买新家具吧。"
+        },
+        {
+          "name": "条件形（たら）",
+          "form": "片付いたら",
+          "example": "<ruby>部屋<rt>へや</rt></ruby>が<ruby>片付<rt>かたづ</rt></ruby>いたら、<ruby>出<rt>で</rt></ruby>かけよう。",
+          "exampleChinese": "房间收拾好了的话，就出门吧。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>部屋<rt>へや</rt></ruby>がすっかり<ruby>片付<rt>かたづ</rt></ruby>いて、<ruby>気持<rt>きも</rt></ruby>ちがいい。",
+          "chinese": "房间完全收拾整齐了，心情很舒畅。"
+        },
+        {
+          "japanese": "<ruby>面倒<rt>めんどう</rt></ruby>な<ruby>問題<rt>もんだい</rt></ruby>がやっと<ruby>片付<rt>かたづ</rt></ruby>いた。",
+          "chinese": "麻烦的问题终于解决了。"
+        }
+      ],
+      "notes": "片付く 是 片付ける 的自动词，强调房间、物品、问题等变为整齐或得到解决的状态；命令形、可能形、使役形等活用在实际使用中较少，需结合语境理解。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T03:01:56.445Z",
+      "updatedAt": "2026-09-16T03:07:24.650Z"
+    },
+    {
+      "id": "5b105c16-7016-4d79-8007-1ba2435ada62",
+      "term": "外側",
+      "reading": "そとがわ",
+      "partOfSpeech": {
+        "category": "名词",
+        "detail": "表示位置关系的普通名词，指物体或空间的外面、外侧。",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [
+        "外侧，外面",
+        "外部，外边（与内侧相对）"
+      ],
+      "jlpt": "N4",
+      "tags": [
+        "名词",
+        "位置关系",
+        "日常用语",
+        "空间方位"
+      ],
+      "conjugations": [],
+      "examples": [
+        {
+          "japanese": "この<ruby>箱<rt>はこ</rt></ruby>の<ruby>外側<rt>そとがわ</rt></ruby>に<ruby>名前<rt>なまえ</rt></ruby>を<ruby>書<rt>か</rt></ruby>いてください。",
+          "chinese": "请在这个箱子的外侧写上名字。"
+        },
+        {
+          "japanese": "<ruby>建物<rt>たてもの</rt></ruby>の<ruby>外側<rt>そとがわ</rt></ruby>は<ruby>白<rt>しろ</rt></ruby>く<ruby>塗<rt>ぬ</rt></ruby>られています。",
+          "chinese": "建筑物的外侧被涂成了白色。"
+        }
+      ],
+      "notes": "「外側」读作「そとがわ」，是与「内側（うちがわ）」相对的位置名词。常以「外側の＋名词」「名词の外側」等形式使用。属于日常常用词，整体难度大致相当于 JLPT N4。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T02:02:52.461Z",
+      "updatedAt": "2026-09-16T03:06:34.804Z"
+    },
+    {
+      "id": "8db8f9dd-4691-4a85-a813-bd55106f9540",
+      "term": "薄い",
+      "reading": "うすい",
+      "partOfSpeech": {
+        "category": "形容词",
+        "detail": "い形容词，表示厚度小、浓度低、程度弱等",
+        "conjugationClass": "い形容词",
+        "transitivity": ""
+      },
+      "meanings": [
+        "（厚度）薄的，不厚的",
+        "（颜色、光线）浅的，淡的",
+        "（味道、浓度）淡的，稀的",
+        "（密度、数量）稀少的，稀疏的",
+        "（感情、关系、可能性）淡薄的，微弱的"
+      ],
+      "jlpt": "N4",
+      "tags": [
+        "形容词",
+        "い形容词",
+        "常用",
+        "多义词",
+        "N4相当",
+        "基础词汇"
+      ],
+      "conjugations": [
+        {
+          "name": "",
+          "form": "薄い",
+          "example": "この<ruby>紙<rt>かみ</rt></ruby>は<ruby>薄<rt>うす</rt></ruby>い。",
+          "exampleChinese": "这张纸很薄。"
+        },
+        {
+          "name": "",
+          "form": "薄くない",
+          "example": "この<ruby>紙<rt>かみ</rt></ruby>は<ruby>薄<rt>うす</rt></ruby>くない。",
+          "exampleChinese": "这张纸不薄。"
+        },
+        {
+          "name": "",
+          "form": "薄かった",
+          "example": "その<ruby>紙<rt>かみ</rt></ruby>は<ruby>薄<rt>うす</rt></ruby>かった。",
+          "exampleChinese": "那张纸很薄。"
+        },
+        {
+          "name": "",
+          "form": "薄くなかった",
+          "example": "その<ruby>紙<rt>かみ</rt></ruby>は<ruby>薄<rt>うす</rt></ruby>くなかった。",
+          "exampleChinese": "那张纸不薄。"
+        },
+        {
+          "name": "て形",
+          "form": "薄くて",
+          "example": "この<ruby>紙<rt>かみ</rt></ruby>は<ruby>薄<rt>うす</rt></ruby>くて、<ruby>破<rt>やぶ</rt></ruby>れやすい。",
+          "exampleChinese": "这张纸很薄，容易破。"
+        },
+        {
+          "name": "",
+          "form": "薄ければ",
+          "example": "<ruby>紙<rt>かみ</rt></ruby>が<ruby>薄<rt>うす</rt></ruby>ければ、<ruby>簡単<rt>かんたん</rt></ruby>に<ruby>破<rt>やぶ</rt></ruby>れる。",
+          "exampleChinese": "如果纸薄，就容易破。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "この<ruby>紙<rt>かみ</rt></ruby>はとても<ruby>薄<rt>うす</rt></ruby>いです。",
+          "chinese": "这张纸非常薄。"
+        },
+        {
+          "japanese": "<ruby>味<rt>あじ</rt></ruby>が<ruby>薄<rt>うす</rt></ruby>いので、<ruby>塩<rt>しお</rt></ruby>を<ruby>少<rt>すこ</rt></ruby>し<ruby>足<rt>た</rt></ruby>しましょう。",
+          "chinese": "味道太淡了，加点盐吧。"
+        }
+      ],
+      "notes": "薄い 是い形容词，反义词为厚い（あつい）。除厚度外，还可表示颜色浅、味道淡、密度低、可能性小、感情或关系淡薄等。活用：薄くない、薄かった、薄くなかった、薄くて、薄ければ。JLPT 相当难度按 N4 处理。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T01:56:41.661Z",
+      "updatedAt": "2026-09-16T05:48:29.264Z"
+    },
+    {
+      "id": "12dad460-00ba-4ab0-8bb0-e6f90ab72774",
+      "term": "つい",
+      "reading": "つい",
+      "partOfSpeech": {
+        "category": "副词",
+        "detail": "副詞，无活用；表示无意中、不由得，也可表示刚刚或就在近处。",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [
+        "无意中；不由得；不知不觉（常与「てしまう」连用，表示明知不该却做了）",
+        "刚刚；才（如「ついさっき」「つい先ほど」）",
+        "就在近处；很近（如「ついそこ」「つい近く」）"
+      ],
+      "jlpt": "N3",
+      "tags": [
+        "副词",
+        "日常口语",
+        "常与てしまう搭配",
+        "时间近接",
+        "无意识行为"
+      ],
+      "conjugations": [],
+      "examples": [
+        {
+          "japanese": "ダイエット<ruby>中<rt>ちゅう</rt></ruby>なのに、つい<ruby>甘<rt>あま</rt></ruby>いものを<ruby>食<rt>た</rt></ruby>べてしまう。",
+          "chinese": "明明在减肥，却不由得吃了甜食。"
+        },
+        {
+          "japanese": "<ruby>彼<rt>かれ</rt></ruby>はついさっきまでここにいた。",
+          "chinese": "他刚刚还在这里。"
+        }
+      ],
+      "notes": "つい 是副词，无活用。常见搭配「つい〜てしまう」表示忍不住、无意中做了某事。与「ついでに」不同。也可表示时间上的“刚刚”和距离上的“就在近处”。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-16T01:20:20.183Z",
+      "updatedAt": "2026-09-16T03:06:44.032Z"
+    },
+    {
+      "id": "2646bab7-6edd-460c-b4fd-ef62700af410",
+      "term": "仮に",
+      "reading": "かりに",
+      "partOfSpeech": {
+        "category": "副词",
+        "detail": "表示假设或临时状态的副词，常用于「仮に～ば／たら／ても／としても」等条件表达",
+        "conjugationClass": "",
+        "transitivity": ""
+      },
+      "meanings": [
+        "假如，假设（提出假定条件）",
+        "暂时，暂且，临时",
+        "姑且，就算……也（后接逆接表达）"
+      ],
+      "jlpt": "N2",
+      "tags": [
+        "副詞",
+        "仮定条件",
+        "書き言葉",
+        "N2"
+      ],
+      "conjugations": [
+        {
+          "name": "仮定条件（～ば）",
+          "form": "仮に～ば",
+          "example": "<ruby>仮<rt>かり</rt></ruby>に<ruby>雨<rt>あめ</rt></ruby>が<ruby>降<rt>ふ</rt></ruby>れば、<ruby>試合<rt>しあい</rt></ruby>は<ruby>中止<rt>ちゅうし</rt></ruby>になる。",
+          "exampleChinese": "假如下雨，比赛就取消。"
+        },
+        {
+          "name": "仮定条件（～たら）",
+          "form": "仮に～たら",
+          "example": "<ruby>仮<rt>かり</rt></ruby>に<ruby>彼<rt>かれ</rt></ruby>が<ruby>来<rt>き</rt></ruby>たら、<ruby>知<rt>し</rt></ruby>らせてください。",
+          "exampleChinese": "假如他来了，请通知我。"
+        },
+        {
+          "name": "逆接仮定（～ても）",
+          "form": "仮に～ても",
+          "example": "<ruby>仮<rt>かり</rt></ruby>に<ruby>失敗<rt>しっぱい</rt></ruby>しても、<ruby>後悔<rt>こうかい</rt></ruby>はしない。",
+          "exampleChinese": "即使失败，也不后悔。"
+        },
+        {
+          "name": "仮定提示（～としても）",
+          "form": "仮に～としても",
+          "example": "<ruby>仮<rt>かり</rt></ruby>にそれが<ruby>本当<rt>ほんとう</rt></ruby>だとしても、<ruby>証拠<rt>しょうこ</rt></ruby>がない。",
+          "exampleChinese": "就算那是真的，也没有证据。"
+        }
+      ],
+      "examples": [
+        {
+          "japanese": "<ruby>仮<rt>かり</rt></ruby>に<ruby>宝<rt>たから</rt></ruby>くじに<ruby>当<rt>あ</rt></ruby>たったとしても、<ruby>仕事<rt>しごと</rt></ruby>は<ruby>辞<rt>や</rt></ruby>めないつもりだ。",
+          "chinese": "就算假设中了彩票，我也打算不辞职。"
+        },
+        {
+          "japanese": "<ruby>仮<rt>かり</rt></ruby>に<ruby>彼<rt>かれ</rt></ruby>の<ruby>言<rt>い</rt></ruby>うことが<ruby>本当<rt>ほんとう</rt></ruby>だとすれば、<ruby>私<rt>わたし</rt></ruby>たちの<ruby>計画<rt>けいかく</rt></ruby>は<ruby>変<rt>か</rt></ruby>えなければならない。",
+          "chinese": "假如他说的是真的，我们就必须改变计划。"
+        }
+      ],
+      "notes": "「仮に」是副词，主要有两个用法：①表示假设，常与「～ば／たら／ても／としても」呼应，意为“假如……的话／即使……也”；②表示临时、暂且，如「仮に置く」。多用于书面语和正式场合，口语中常用「もし」。",
+      "aiStatus": "complete",
+      "studyStatus": "active",
+      "createdAt": "2026-09-15T09:48:47.019Z",
+      "updatedAt": "2026-09-16T01:10:37.151Z"
+    },
     {
       "id": "eb0ba3a3-1920-439f-917c-be0e6affdd8a",
       "term": "塩",

@@ -286,7 +286,10 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .quiz-distractor-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
 .quiz-distractor-list article { display: grid; gap: 10px; padding: 16px; border: 1px solid var(--line); border-radius: 13px; background: color-mix(in srgb, var(--soft) 52%, var(--surface)); }
 .quiz-distractor-word, .quiz-distractor-state { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.quiz-distractor-word > div { display: flex; align-items: center; gap: 7px; }
+.quiz-distractor-word > div:first-child { min-width: 0; display: grid; gap: 2px; }
 .quiz-distractor-word strong { font-family: "Noto Serif JP", "Yu Mincho", serif; font-size: 1.05rem; }
+.quiz-distractor-word small { color: var(--muted); font-family: "Noto Serif JP", "Yu Mincho", serif; font-size: .74rem; }
 .quiz-distractor-word rt { color: var(--accent); font-size: .58em; }
 .quiz-distractor-list article > p { min-height: 1.5em; margin: 0; color: var(--muted); font-size: .82rem; line-height: 1.55; }
 .quiz-actions { display: flex; justify-content: flex-end; padding: 16px 24px; border-top: 1px solid var(--line); }
